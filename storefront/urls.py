@@ -18,7 +18,8 @@ from django.urls import path, include
 from myhome import views as main_views
 
 urlpatterns = [
+    path("", main_views.my_page),
     path("admin/", admin.site.urls),
-	path("playground/", include('playground.myurls')),
-	path("", main_views.my_page)
+    path("playground/", include('playground.myurls')),
+    path("grade5/", include('grade5.myurls')),
 ]

@@ -11,20 +11,28 @@
     }
     
     table {
+      border-collapse: collapse;
+      #border: 1px solid;
       width: 80%; 
+      table-layout: fixed;
       margin: auto;
     }
 
 	th, td {
-	  padding: 15px;
-	  font-size: 40px;
-	  text-align: center;
+        border: 1px solid;
+        max-width: 25%;
+        word-wrap: break-word;
+        white-space: normal;
+	    padding: 15px;
+	    font-size: 20px;
+	    text-align: center;
 	}
 	
     header {
       background-color: #80f0f0;
-      color: white;
-      padding: 20px;
+      color: gray;
+      padding: 1px;
+      font-size: 20px;
 	  text-align: left;
     }
     
@@ -44,22 +52,11 @@
 
 <body>
   <header>
-    <h1>Happy Math</h1>
+    <h2><a href="/">Home</a>/<a href="/grade5/home/">Grade 5</a>/Addition</h2>
   </header>
   <br><br><br>
 
-  <table>
-  <tr>
-    <td><a href="/playground/hello/">Grade 1</a></td>
-    <td><a href="https://www.yahoo.com/">Grade 2</a></td>
-    <td><a href="https://www.bing.com/">Grade 3</a></td>
-  </tr>
-  <tr>
-    <td><a href="https://www.wikipedia.org/">Grade 4</td>
-    <td><a href="/grade5/home/">Grade 5</td>
-    <td><a href="https://www.github.com/">Grade 6</td>
-  </tr>
-  </table>
+  Grade 5 Addition page
   <br><br><br>
   <footer>
     &copy; 2023 Happy Math. All rights reserved.
