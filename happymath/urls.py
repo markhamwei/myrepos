@@ -1,4 +1,4 @@
-"""storefront URL Configuration
+"""happymath URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -21,5 +21,5 @@ urlpatterns = [
     path("", main_views.my_page),
     path("admin/", admin.site.urls),
     path("playground/", include('playground.myurls')),
-    path("grade5/", include('grade5.myurls')),
+    path("grade5/", include('grade5.grade5urls')),
 ]

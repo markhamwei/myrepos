@@ -1,9 +1,9 @@
 from django.urls import path
 from django.urls import path, include
-from . import views
+from . import grade5views
 
 # URLConf
 urlpatterns = [
-    path('home/', views.grade5_home),
+    path('home/', grade5views.grade5_home),
     path("addition/", include('grade5.addition.myurls'))
 ]
