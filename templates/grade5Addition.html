@@ -13,19 +13,19 @@
     table {
       border-collapse: collapse;
       #border: 1px solid;
-      width: 80%; 
-      table-layout: fixed;
+      #width: 40%; 
+      #table-layout: fixed;
       margin: auto;
     }
 
 	th, td {
-        border: 1px solid;
-        max-width: 25%;
+        #border: 1px solid;
+        #max-width: 25%;
         word-wrap: break-word;
         white-space: normal;
-	    padding: 15px;
-	    font-size: 20px;
-	    text-align: center;
+	    #padding: 15px;
+	    font-size: 40px;
+	    #text-align: center;
 	}
 	
     header {
@@ -34,6 +34,10 @@
       padding: 1px;
       font-size: 20px;
 	  text-align: left;
+    }
+
+    main {
+      font-size: 40px;
     }
     
     footer {
@@ -56,10 +60,23 @@
   </header>
   <br><br><br>
 
-  Grade 5 Addition page
+  <main>
+    <form action="/playground/calculate/">
+      <table>
+        <tr><td align="right"></td><td>{{ number1 }}</td></tr>
+        <tr><td align="right">+</td><td>{{ number2 }}</td></tr>
+        <tr"><td align="right" colspan="2"><hr></td></tr>
+        <tr><td align="right">=</td><td>
+          <input type="text" id="answer" name="answer" value="" style="height: 50px;"><br></td></tr>
+        <tr><td align="right" colspan="2" style="padding: 15px;">
+          <input type="submit" value="Submit" style="font-size: 40px;"></td></tr>
+      </table>
+      
+    </form>  
+  </main>
   <br><br><br>
   <footer>
-    &copy; 2023 Happy Math. All rights reserved.
+    &copy; {{ year }} Happy Math. All rights reserved.
   </footer>
 </body>
 </html>
