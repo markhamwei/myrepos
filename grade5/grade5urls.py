@@ -5,5 +5,5 @@ from . import grade5views
 # URLConf
 urlpatterns = [
     path('home/', grade5views.grade5_home),
-    path("addition/", include('grade5.addition.myurls'))
+    path("addition/", include('grade5.addition.additionurls'))
 ]
