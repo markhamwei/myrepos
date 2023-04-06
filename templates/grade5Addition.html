@@ -25,7 +25,7 @@
         white-space: normal;
 	    #padding: 15px;
 	    font-size: 40px;
-	    #text-align: center;
+	    text-align: right;
 	}
 	
     header {
@@ -61,17 +61,19 @@
   <br><br><br>
 
   <main>
-    <form action="/playground/calculate/">
+    <form action="/grade5/addition/">
       <table>
-        <tr><td align="right"></td><td>{{ number1 }}</td></tr>
-        <tr><td align="right">+</td><td>{{ number2 }}</td></tr>
-        <tr"><td align="right" colspan="2"><hr></td></tr>
-        <tr><td align="right">=</td><td>
-          <input type="text" id="answer" name="answer" value="" style="height: 50px;"><br></td></tr>
-        <tr><td align="right" colspan="2" style="padding: 15px;">
-          <input type="submit" value="Submit" style="font-size: 40px;"></td></tr>
+        <tr><td></td><td>{{ number1 }}</td></tr>
+        <tr><td>+</td><td>{{ number2 }}</td></tr>
+        <tr"><td colspan="2"><hr></td></tr>
+        <tr><td>{{ flag }}</td><td>
+          <input type="text" id="answer" name="answer" value="{{ answer }}" style="font-size: 40px; text-align: right;" size="3"><br></td></tr>
+        <tr><td colspan="2" style="padding: 15px;">
+          <input type="Submit" value="{{ cmd }}" style="font-size: 40px;"></td></tr>
       </table>
-      
+      <input type="hidden" id="state" name="state" value="{{ state }}">
+      <input type="hidden" id="num1" name="num1" value="{{ number1 }}">
+      <input type="hidden" id="num2" name="num2" value="{{ number2 }}">
     </form>  
   </main>
   <br><br><br>

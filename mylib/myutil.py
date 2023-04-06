@@ -1,5 +1,7 @@
 from datetime import datetime
 import random
+from django.http import HttpResponse
+import wolframalpha
 
 
 def get_msec():
@@ -21,3 +23,10 @@ def get_randoms(count, min, max):
     for i in range(count):
         randoms.append(random.randint(min, max))
     return randoms
+
+
+def math_query(query):
+    client = wolframalpha.Client("GLYJRW-TEH7UK7VYL")
+    # Send query to Wolfram API
+    res = client.query(query)
+    return (next(res.results).text)
