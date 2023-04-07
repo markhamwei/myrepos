@@ -5,7 +5,7 @@ from mylib import myutil
 # Create your views here.
 
 
-def addition_page(request):
+def subtract_page(request):
     context = {'number1': '', 'number2': '', 'state': '0', 'year': '2023', 'answer': '', 'button2': ''
                }
     state = 0
@@ -16,17 +16,21 @@ def addition_page(request):
     if (state == 0):  # the initial state
         context['state'] = '1'
         randoms = myutil.get_randoms(2, 100, 9999)
-        context['number1'] = randoms[0]
-        context['number2'] = randoms[1]
+        if (randoms[0] >= randoms[1]):
+            context['number1'] = randoms[0]
+            context['number2'] = randoms[1]
+        else:
+            context['number1'] = randoms[1]
+            context['number2'] = randoms[0]
         context['flag'] = '='
         context['cmd'] = 'Submit'
-        return render(request, 'grade5Addition.html', context)
+        return render(request, 'grade5Subtract.html', context)
     if (state == 1):  # which means user cliked submit in the initial page
         submittedValue = request.GET['Submit']
         num1 = request.GET['num1']
         num2 = request.GET['num2']
         useranswer = request.GET['answer']
-        answer = myutil.math_query(f'{num1}+{num2}')
+        answer = myutil.math_query(f'{num1}-{num2}')
         context['number1'] = num1
         context['number2'] = num2
         context['state'] = '1'
@@ -47,4 +51,4 @@ def addition_page(request):
         else:
             context['button2'] = ''
 
-        return render(request, 'grade5Addition.html', context)
+        return render(request, 'grade5Subtract.html', context)
