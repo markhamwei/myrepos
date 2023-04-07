@@ -27,6 +27,11 @@
 	    font-size: 40px;
 	    text-align: right;
 	}
+
+	.resultimg {
+		width: 40px;
+		height: 40px;
+	}
 	
     header {
       background-color: #80f0f0;
@@ -65,8 +70,20 @@
       <table>
         <tr><td></td><td>{{ number1 }}</td></tr>
         <tr><td>-</td><td>{{ number2 }}</td></tr>
-        <tr"><td colspan="2"><hr></td></tr>
-        <tr><td>{{ flag }}</td><td>
+        <tr><td colspan="2"><hr></td></tr>
+        <tr><td>
+		{% if flag == '=' %}
+			{{ flag }}
+			{% endif %}
+		{% if flag == 'x' %}
+			{% load static %}
+			<img src="{% static 'frown.png' %}" class="resultimg">
+			{% endif %}
+		{% if flag == 'v' %}
+			{% load static %}
+			<img src = "{% static 'smile.png' %}" class="resultimg">
+			{% endif %}
+		</td><td>
           <input type="text" id="answer" name="answer" value="{{ answer }}" style="font-size: 40px; text-align: right;" size="3"><br></td></tr>
         <tr><td colspan="2" style="padding: 15px;">
           <input type="Submit" name="Submit" value="{{ cmd }}" style="font-size: 40px;">
