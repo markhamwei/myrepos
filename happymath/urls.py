@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from myhome import homeviews as main_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("", main_views.my_page),
     path("admin/", admin.site.urls),
     path("playground/", include('playground.myurls')),
     path("grade5/", include('grade5.grade5urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
