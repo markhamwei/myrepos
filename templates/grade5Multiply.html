@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,9 +29,19 @@
       <table>
         <tr><td></td><td style="text-align: right;">{{ number1 }}</td></tr>
         <tr><td style="text-align: right;">x</td><td style="text-align: right;">{{ number2 }}</td></tr>
-        <tr"><td colspan="2"><hr></td></tr>
-        <tr><td style="text-align: right;">{{ flag }}</td><td style="text-align: right;">
-          <input type="text" id="answer" name="answer" value="{{ answer }}" size="4" 
+        <tr><td colspan="2"><hr></td></tr>
+        <tr><td style="text-align: right;">
+		{% if flag == '=' %}
+			{{ flag }}
+			{% endif %}
+		{% if flag == 'x' %}
+			<img src="{% static 'frown.png' %}" class="resultimg">
+			{% endif %}
+		{% if flag == 'v' %}
+			<img src = "{% static 'smile.png' %}" class="resultimg">
+			{% endif %}
+		</td><td style="text-align: right;">
+          <input type="text" id="answer" name="answer" value="{{ answer }}" size="3" 
                     class="textbox-height40" style="text-align: right;"></td></tr>
         <tr><td style="text-align: right;" colspan="2" >
           {% if button2 == "GetAnswer" %}
