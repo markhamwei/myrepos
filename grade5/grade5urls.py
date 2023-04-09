@@ -8,5 +8,6 @@ urlpatterns = [
     path("addition/", include('grade5.addition.additionurls')),
     path("subtract/", include('grade5.subtract.subtracturls')),
     path("multiply/", include('grade5.multiply.multiplyurls')),
-    path("divide/", include('grade5.divide.divideurls'))
+    path("divide/", include('grade5.divide.divideurls')),
+    path("length/", include('grade5.length.lengthurls'))
 ]

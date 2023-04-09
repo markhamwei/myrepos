@@ -28,5 +28,9 @@ def get_randoms(count, min, max):
 def math_query(query):
     client = wolframalpha.Client("GLYJRW-TEH7UK7VYL")
     # Send query to Wolfram API
-    res = client.query(query)
-    return (next(res.results).text)
+    try:
+        res = client.query(query)
+        return (next(res.results).text)
+    except Exception:
+        # Return a bad request response if the request data cannot be decoded or parsed
+        return ('Invalid query string')
