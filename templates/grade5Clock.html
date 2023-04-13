@@ -186,20 +186,40 @@
       }
     </script>
   </td></tr>
-    <tr><td style="text-align: center;" colspan="2">Time taken:</td></tr>
-    <tr><td style="text-align: center;" colspan="2">
+    <tr><td style="text-align: center;">Time taken:</td>
+        <td>
+        {% if flag == '' %}
+        {{ flag }}
+        {% endif %}
+		{% if flag == 'x' %}
+			<img src="{% static 'frown.png' %}" class="resultimg">
+			{% endif %}
+		{% if flag == 'v' %}
+			<img src = "{% static 'smile.png' %}" class="resultimg">
+			{% endif %}
+    </td></tr>
+    <tr><td style="text-align: center; font-size: 30px;" colspan="2" >
         <input type="text" id="answer" name="answer1" value="{{ answer1 }}" size="1" 
-        class="textbox-height40" style="text-align: left;">H
+        class="textbox-height40" style="text-align: center;">H
         <input type="text" id="answer" name="answer2" value="{{ answer2 }}" size="1" 
-        class="textbox-height40" style="text-align: left;">M
+        class="textbox-height40" style="text-align: center;">M
         <input type="text" id="answer" name="answer3" value="{{ answer3 }}" size="1" 
-        class="textbox-height40" style="text-align: left;">S
+        class="textbox-height40" style="text-align: center;">S
         </td></tr>
+        <tr><td style="text-align: center; padding: 10px;" colspan="2" >
+            {% if button2 == "GetAnswer" %}
+               <input type="Submit" name="Submit" value="{{ button2 }}" class="textbox-height40">
+               {% endif %}
+            <input type="Submit" name="Submit" value="{{ cmd }}" class="textbox-height40">
+          </td></tr>
     </table>
     <input type="hidden" id="state" name="state" value="{{ state }}">
-    <input type="hidden" id="num1" name="num1" value="{{ number1 }}">
-    <input type="hidden" id="unit1" name="unit1" value="{{ unit1 }}">
-    <input type="hidden" id="unit2" name="unit2" value="{{ unit2 }}">
+    <input type="hidden" id="hour1" name="hour1" value="{{ hour1 }}">
+    <input type="hidden" id="minute1" name="minute1" value="{{ minute1 }}">
+    <input type="hidden" id="second1" name="second1" value="{{ second1 }}">
+    <input type="hidden" id="hour2" name="hour2" value="{{ hour2 }}">
+    <input type="hidden" id="minute2" name="minute2" value="{{ minute2 }}">
+    <input type="hidden" id="second2" name="second2" value="{{ second2 }}">
   </form>  
   </main><br>
   <footer>
