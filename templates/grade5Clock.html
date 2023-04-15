@@ -26,6 +26,7 @@
         <table>
         <tr><td>Start</td><td>Finish</td></tr>
         <tr><td>
+  {% if type == 'picture' %}
   <canvas id="clock1" width="250" height="250"></canvas>
   <script>
     var canvas = document.getElementById("clock1");
@@ -105,7 +106,12 @@
       ctx.rotate(-pos);
     }
   </script>
+  {% endif %}
+  {% if type == 'text' %}
+  <p style="text-decoration:underline;">{{ hour1_12 }}:{{ minute1 }}:{{ second1 }} {{am_pm1}}<p>
+  {% endif %}
 </td><td>
+    {% if type == 'picture' %}
     <canvas id="clock2" width="250" height="250"></canvas>
     <script>
       var canvas = document.getElementById("clock2");
@@ -185,7 +191,11 @@
         ctx.rotate(-pos);
       }
     </script>
-  </td></tr>
+    {% endif %}
+    {% if type == 'text' %}
+    <p style="text-decoration:underline;">{{ hour2_12 }}:{{ minute2 }}:{{ second2 }} {{am_pm2}}<p>
+    {% endif %}
+    </td></tr>
     <tr><td style="text-align: center;">Time taken:</td>
         <td>
         {% if flag == '' %}
@@ -200,11 +210,11 @@
     </td></tr>
     <tr><td style="text-align: center; font-size: 30px;" colspan="2" >
         <input type="text" id="answer" name="answer1" value="{{ answer1 }}" size="1" 
-        class="textbox-height40" style="text-align: center;">H
+        class="textbox-height40" style="text-align: center;" autocomplete="off">H
         <input type="text" id="answer" name="answer2" value="{{ answer2 }}" size="1" 
-        class="textbox-height40" style="text-align: center;">M
+        class="textbox-height40" style="text-align: center;" autocomplete="off">M
         <input type="text" id="answer" name="answer3" value="{{ answer3 }}" size="1" 
-        class="textbox-height40" style="text-align: center;">S
+        class="textbox-height40" style="text-align: center;" autocomplete="off">S
         </td></tr>
         <tr><td style="text-align: center; padding: 10px;" colspan="2" >
             {% if button2 == "GetAnswer" %}
@@ -220,6 +230,7 @@
     <input type="hidden" id="hour2" name="hour2" value="{{ hour2 }}">
     <input type="hidden" id="minute2" name="minute2" value="{{ minute2 }}">
     <input type="hidden" id="second2" name="second2" value="{{ second2 }}">
+    <input type="hidden" id="type" name="type" value="{{ type }}">
   </form>  
   </main><br>
   <footer>
