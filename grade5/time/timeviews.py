@@ -9,31 +9,63 @@ import datetime
 def time_page(request):
     context = {'state': '0', 'year': '2023'}
     state = 0
+    displaytype = ''
+    submittedValue = ''
     try:
         state = int(request.GET['state'])
     except Exception:
         state = 0
-    if (state == 0):  # the initial state
-        tmpMsec = myutil.get_msec()
-        if (tmpMsec % 2 == 1):
-            context['type'] = 'picture'
+    try:
+        displaytype = request.GET['type']
+    except Exception:
+        pass
+    try:
+        submittedValue = request.GET['Submit']
+    except Exception:
+        pass
+
+    if ((state == 0) or (submittedValue == 'text') or (submittedValue == 'picture')):  # the initial state
+        if ((submittedValue == 'text') or (submittedValue == 'picture')):
+            # maybe user clicked the switch button between picture/text time.
+            displaytype = submittedValue
+        if ((displaytype != 'text') and (displaytype != 'picture')):
+            tmpMsec = myutil.get_msec()
+            if (tmpMsec % 2 == 1):
+                context['type'] = 'text'
+            else:
+                context['type'] = 'picture'
         else:
-            context['type'] = 'text'
+            context['type'] = displaytype
+        if (context['type'] == 'picture'):
+            context['OtherType'] = 'text'
+        else:
+            context['OtherType'] = 'picture'
         context['state'] = '1'
-        randoms = myutil.get_randoms(6, 0, 59)
-        hour1 = randoms[0] % 12 + 1
-        minute1 = randoms[1]
-        second1 = randoms[2]
+
+        if ((submittedValue == 'text') or (submittedValue == 'picture')):
+            hour1 = int(request.GET['hour1'])
+            minute1 = int(request.GET['minute1'])
+            second1 = int(request.GET['second1'])
+            hour2 = int(request.GET['hour2'])
+            minute2 = int(request.GET['minute2'])
+            second2 = int(request.GET['second2'])
+            startTime = datetime.datetime(2023, 4, 11, hour1, minute1, second1)
+            endTime = datetime.datetime(2023, 4, 11, hour2, minute2, second2)
+        else:
+            randoms = myutil.get_randoms(6, 0, 59)
+            hour1 = randoms[0] % 7 + 9  # limit the start hour between 9 and 15
+            minute1 = randoms[1]
+            second1 = randoms[2]
+            estra_hour2 = randoms[3] % 6
+            estra_minute2 = randoms[4]
+            estra_second2 = randoms[5]
+            extra_time = datetime.timedelta(
+                hours=estra_hour2, minutes=estra_minute2, seconds=estra_second2)
+            startTime = datetime.datetime(2023, 4, 11, hour1, minute1, second1)
+            endTime = startTime + extra_time
         context['hour1'] = hour1
         context['minute1'] = f'{minute1:02d}'
         context['second1'] = f'{second1:02d}'
-        startTime = datetime.datetime(2023, 4, 11, hour1, minute1, second1)
-        estra_hour2 = randoms[3] % 6
-        estra_minute2 = randoms[4]
-        estra_second2 = randoms[5]
-        extra_time = datetime.timedelta(
-            hours=estra_hour2, minutes=estra_minute2, seconds=estra_second2)
-        endTime = startTime + extra_time
         context['hour2'] = endTime.hour
         context['hour1_12'] = startTime.strftime("%I")
         context['hour2_12'] = endTime.strftime("%I")
@@ -49,8 +81,11 @@ def time_page(request):
         context['button2'] = ''
         return render(request, 'grade5Clock.html', context)
     if (state == 1):  # which means user cliked submit in the initial page
-        submittedValue = request.GET['Submit']
         context['type'] = request.GET['type']
+        if (context['type'] == 'picture'):
+            context['OtherType'] = 'text'
+        else:
+            context['OtherType'] = 'picture'
         hour1 = request.GET['hour1']
         minute1 = request.GET['minute1']
         second1 = request.GET['second1']
