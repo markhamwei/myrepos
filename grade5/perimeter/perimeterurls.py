@@ -1,6 +1,6 @@
 from django.urls import path
 from django.urls import path
-from . import timeviews
+from . import perimeterviews
 
 # URLConf
 urlpatterns = [

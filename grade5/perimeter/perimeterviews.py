@@ -6,5 +6,5 @@ import datetime
 # Create your views here.
 
 def perimeter_page(request):
-	contest = {}
+	context = {}
 	return render(request, 'grade5Perimeter.html', context)
