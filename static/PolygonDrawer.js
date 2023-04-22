@@ -34,14 +34,18 @@ const DrawingScope = (function() {
 		
 		var highest = -1, highestidx;
 		var sum = 0;
-		for(let i = 1; i < array.length; i++) {
+		for(let i = 0; i < array.length; i++) {
 			if(array[i] > highest) {
 				highest = array[i];
 				highestidx = i;
 			}
 			sum += array[i];
 		}
-
+		if(2*highest >= sum) {
+			//in this case, it's impossible to draw a polygon, so we do nothing.
+			console.log('impossible');
+			return;
+		}
 		if((1+Math.PI/4)*highest >= sum) {
 			specialcase(array, highestidx, canvasID);
 		}
@@ -86,15 +90,65 @@ const DrawingScope = (function() {
 		}
 		return Math.sqrt(x*x+y*y) >= array[idx];
 	}
+	function specialfind(array, idx, ang) {
+		let cur = 0;
+		let x = 0, y = 0;
+		let ret = new Array(array.length);
+		for(let i = idx+1; i < array.length; i++) {
+			cur += ang;
+			x += array[i]*Math.cos(cur);
+			y += array[i]*Math.sin(cur);
+			ret[i] = [x, y];
+		}
+		for(let i = 0; i < idx; i++) {
+			cur += ang;
+			x += array[i]*Math.cos(cur);
+			y += array[i]*Math.sin(cur);
+			ret[i] = [x, y];
+		}
+		return ret;
+	}
 	
 	function specialcase(array, idx, canvasID) {
-		
+		let minang = 0, maxang = 2*PI/(array.length-1);
+		for(let it = 0; it < 30; it++) {
+			let ang = (minang+maxang)/2;
+			if(specialfit(array, idx, ang)) {
+				minang = ang;
+			}
+			else {
+				maxang = ang;
+			}
+		}
+		let poly = specialfind(array, idx, maxang);
+		//this polygon is way off center, and would appear cut off in the canvas itself.
+		//Thus we translate and resize it.
+		let midx = 0, midy = 0;
+		for(let i = 0; i < poly.length; i++) {
+			midx += poly[i][0];
+			midy += poly[i][1];
+		}
+		midx /= poly.length; midy /= poly.length;
+		let maxx = 0, maxy = 0;
+		for(let i = 0; i < poly.length; i++) {
+			poly[i][0] -= midx;
+			poly[i][1] -= midy;
+			if(poly[i][0]*poly[i][0]+poly[i][1]*poly[i][1] > maxx*maxx + maxy*maxy) {
+				maxx = poly[i][0];
+				maxy = poly[i][1];
+			}
+		}
+		let maxlen = Math.sqrt(maxx*maxx+maxy*maxy);
+		for(let i = 0; i < poly.length; i++) {
+			poly[i][0] = poly[i][0]/maxlen*200+200;
+			poly[i][1] = poly[i][1]/maxlen*200+200;
+		}
+		tracePoints(poly, canvasID);
 	}
 	
 	// Function to draw onto the canvas.
 	// Takes in an array of 2d vectors, each vector representing a point, and a canvas ID
-	// Resizes the canvas to 400x400 and draws a polygon matching the array in proportion
-	//   onto the canvas
+	// Resizes the canvas to 400x400 and the polygon onto the canvas
 	function tracePoints(points, canvasID) {
 		var canvas = document.getElementById(canvasID);
 		canvas.setAttribute('width', '400');
