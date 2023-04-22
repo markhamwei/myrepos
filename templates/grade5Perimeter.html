@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Happy Math</title>
+	<link rel="stylesheet" type="test/css" href="/static/styles.css">
+</head>
+<body onload="DrawScope.generatePoly('polygonCanvas')">
+	<header>
+		<h2><a href="/">Home</a>/<a href="/grade5/home/">Grade5</a>Perimeter</h2>
+	</header>
+	<br><br><br>
+
+	<main>
+		<form action="/grade5/perimeter/">
+			<canvas id="polygonCanvas"></canvas>
+			<script src="/static/polygonDrawer.js"></script>
+
+			<input type="submit">Submit!</input>
