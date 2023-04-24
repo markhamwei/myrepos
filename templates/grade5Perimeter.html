@@ -5,17 +5,17 @@
 	<meta charset="UTF-8">
 	<title>Happy Math</title>
 	<link rel="stylesheet" type="text/css" href="/static/styles.css">
-  <style>
-    table {
-        /* border: 1px solid; */
-        width: 35%;
-    }
-  th,
-  td {
-         padding: 3px;
-        font-size: 40px;
-  }
-</style>
+	<style>
+		table {
+			/* border: 1px solid; */
+			width: 35%;
+		}
+		th,
+		td {
+			padding: 3px;
+			font-size: 40px;
+		}
+	</style>
 </head>
 <body onload="DrawingScope.generatePoly('polygonCanvas')">
 	<header>
@@ -24,13 +24,15 @@
 	<br><br><br>
 	
 	<main>
-		<canvas id="polygonCanvas"></canvas>
+		<canvas id="polygonCanvas"></canvas><br>
+		<label for="perimeter" class="textbox-height40">Perimeter:</label><br>
+		<input type="text" name="perimeter" class="textbox-height40" style="text-align:center" id="inputbox"><br>
+
+		<img class="hiddenimg" id="resultimgleft">
+		<input type="button" onclick="DrawingScope.checkPoly('inputbox', ['resultimgleft'])" value="Submit" class="textbox-height40">
+		<input type="button" onclick="DrawingScope.showSolution('inputbox')" value="Get Answer" class="textbox-height40">
+
 		<script src="/static/PolygonDrawer.js"></script>
-		<br>
-		<label for="perimeter">Perimeter:</label><br>
-		<input type="text" id="perimeter" name="perimeter"><br>
-		<input type="button" onclick="DrawingScope.checkPoly()" value="Submit">
-		
 	</main>
 	<br><br><br>
 	<footer>

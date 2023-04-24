@@ -1,6 +1,8 @@
 
 const DrawingScope = (function() {
 
+	const canvasSize = 750;
+	const halfSize = 375;
 	var array;
 	var points;
 	var canvasID;
@@ -75,8 +77,8 @@ const DrawingScope = (function() {
 			}
 			points = find(maxrad);
 			for(let i = 0; i < points.length; i++) {
-				points[i][0] = 200+points[i][0]/minrad*150;
-				points[i][1] = 200+points[i][1]/minrad*150;
+				points[i][0] = halfSize+points[i][0]/minrad*halfSize*0.7;
+				points[i][1] = halfSize+points[i][1]/minrad*halfSize*0.7;
 			}
 			tracePoints();
 		}
@@ -156,30 +158,30 @@ const DrawingScope = (function() {
 		}
 		let maxlen = Math.sqrt(maxx*maxx+maxy*maxy);
 		for(let i = 0; i < points.length; i++) {
-			points[i][0] = points[i][0]/maxlen*200+200;
-			points[i][1] = points[i][1]/maxlen*200+200;
+			points[i][0] = points[i][0]/maxlen*halfSize*0.7+halfSize;
+			points[i][1] = points[i][1]/maxlen*halfSize*0.7+halfSize;
 		}
 		tracePoints();
 	}
 
 	// Helper function
-	// given a line and an integer, draws the integer beside the midpoint at a fixed distance of 15 pixels
+	// given a line and an integer, draws the integer beside the midpoint at a fixed distance of 45 pixels
 	//   perpendicular to the line
 	function drawLength(x1, y1, x2, y2, val) {
 		let dx = y1-y2, dy = x2-x1;
 		let d = Math.sqrt(dx*dx+dy*dy);
-		dx*=15/d; dy*=15/d;
+		dx*=45/d; dy*=45/d;
 		context.fillText(val.toString(), (x1+x2)/2+dx-6, (y1+y2)/2+dy+3);
 	}
 	
 	// Function to draw onto the canvas.
 	// Takes in an array of 2d vectors, each vector representing a point, and a canvas ID
-	// Resizes the canvas to 400x400 and the polygon onto the canvas
+	// Resizes the canvas to canvasSizexcanvasSize and the polygon onto the canvas
 	// Additionally draws the side lengths of the polygons
 	function tracePoints() {
 		canvas = document.getElementById(canvasID);
-		canvas.setAttribute('width', '400');
-		canvas.setAttribute('height', '400');
+		canvas.setAttribute('width', canvasSize.toString());
+		canvas.setAttribute('height', canvasSize.toString());
 
 		context = canvas.getContext('2d');
 		context.clearRect(0, 0, canvas.width, canvas.height);
@@ -191,8 +193,9 @@ const DrawingScope = (function() {
 		context.closePath();
 		context.stroke();
 
-		drawLength(points[0][0], points[0][1], points[points.length-1][0], points[points.length-1][1], array[0]);
 
+		context.font='35px verdana';
+		drawLength(points[0][0], points[0][1], points[points.length-1][0], points[points.length-1][1], array[0]);
 		for(let i = 1; i < points.length; i++) {
 			drawLength(points[i][0], points[i][1], points[i-1][0], points[i-1][1], array[i]);
 		}
@@ -200,7 +203,7 @@ const DrawingScope = (function() {
 	return {
 
 		// Takes in a canvasID
-		// resizes the canvas to 400x400 and draws a random polygon on it.
+		// resizes the canvas to canvasSizexcanvasSize and draws a random polygon on it.
 		generatePoly: function(cID) {
 			canvasID = cID;
 
@@ -221,13 +224,38 @@ const DrawingScope = (function() {
 				console.log(array); //DEBUG
 			drawPoly();
 		},
-
-		checkPoly: function() {
-
+		
+		// takes in an input box ID and a list of html IDs and sets their src to
+		//   /static/smile.png or static/frown.png depending on if the answer was correct
+		checkPoly: function(inputboxID, lstID) {
+			inputbox = document.getElementById(inputboxID);
+			let sum = 0;
+			for(let i = 0; i < array.length; i++) {
+				sum += array[i];
+			}
+			let correctness = inputbox.value == sum.toString();
+			for(let i = 0; i < lstID.length; i++) {
+				let tmp = document.getElementById(lstID[i]);
+				if(tmp.classList.contains('hiddenimg')) {
+					tmp.classList.remove('hiddenimg');
+				}
+				tmp.classList.add('resultimg');
+				if(correctness) {
+					tmp.setAttribute('src', '/static/smile.png');
+				}
+				else {
+					tmp.setAttribute('src', '/static/frown.png');
+				}
+			}
 		},
 
-		showSolution: function() {
-
+		// takes in an input box ID and sets its value to the correct answer
+		showSolution: function(inputboxID) {
+			let sum = 0;
+			for(let i = 0; i < array.length; i++) {
+				sum += array[i];
+			}
+			document.getElementById(inputboxID).value = sum.toString();
 		}
 	};
 })();
