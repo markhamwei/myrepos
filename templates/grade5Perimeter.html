@@ -24,11 +24,13 @@
 	<br><br><br>
 	
 	<main>
-		<form action="/grade5/perimeter/">
-			<canvas id="polygonCanvas"></canvas>
-			<script src="/static/PolygonDrawer.js"></script>
-			<input type="submit">Submit!</input>
-		</form>
+		<canvas id="polygonCanvas"></canvas>
+		<script src="/static/PolygonDrawer.js"></script>
+		<br>
+		<label for="perimeter">Perimeter:</label><br>
+		<input type="text" id="perimeter" name="perimeter"><br>
+		<input type="button" onclick="DrawingScope.checkPoly()" value="Submit">
+		
 	</main>
 	<br><br><br>
 	<footer>
