@@ -1,6 +1,6 @@
 body {
-    /*font-family: Arial, sans-serif;*/
-    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    background-color: #fafafe;
     text-align: center;
 }
 
@@ -43,26 +43,28 @@ td {
 }
 
 header {
-    background-color: #80f0f0;
-    color: gray;
+    background-color: #72d3f7;
+    color: #3a75f2;
     padding: 1px;
     font-size: 20px;
     text-align: left;
 }
 
 footer {
-    background-color: #80f0f0;
-    color: white;
+    background-color: #72d3f7;
+    color: #3a75f2;
     padding: 10px;
     font-size: 20px;
     text-align: center;
 }
 
 a:link {
+    color: #515fce;
     text-decoration: none;
 }
 
 a:visited {
+    color: #6546a4;
     text-decoration: none;
 }
 
