@@ -11,6 +11,6 @@ urlpatterns = [
     path("divide/", include('grade5.divide.divideurls')),
     path("length/", include('grade5.length.lengthurls')),
     path("time/", include('grade5.time.timeurls')),
-	path("perimeter/", include('grade5.perimeter.perimeterurls')),
+	path("perimeterarea/", include('grade5.perimeterarea.perimeterareaurls')),
     path("fractions/", include('grade5.fractions.grade5fractionsurls'))
 ]

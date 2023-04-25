@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Happy Math</title>
+	<link rel="stylesheet" type="text/css" href="/static/styles.css">
+	<style>
+		table {
+			/* border: 1px solid; */
+			width: 35%;
+		}
+		th,
+		td {
+			padding: 3px;
+			font-size: 40px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h2>
+			<a href="/">Home</a>/<a href="/grade5/home/">Grade5</a>/Perimeter&Area
+		</h2>
+	</header>
+	<br><br><br>
+	
+	<main class="fontsize25">
+        <table>
+            <tr>
+                <td><a href="/grade5/perimeterarea/perimeter/">Perimeter</a></td>
+				<td><a href="/grade5/perimeterarea/area/">Area</a></td>
+            </tr>
+        </table>
+	</main>
+
+	<br><br><br>
+	<footer>
+		&copy; {{ year }} Happy Math. All rights reserved.
+	</footer>
+</body>
+</html>
