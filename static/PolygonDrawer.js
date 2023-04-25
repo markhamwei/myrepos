@@ -8,6 +8,10 @@ const DrawingScope = (function() {
 	var canvasID;
 	var canvas;
 	var context;
+
+	var inputbox = document.getElementById('inputbox');
+	var nextbutton = document.getElementById('nextbutton');
+	var resultimg = document.getElementById('resultimgleft');
 	
 	// A binary search helper function
 	// finds points along the circumference of a circle with a given radius
@@ -204,10 +208,26 @@ const DrawingScope = (function() {
 
 		// Takes in a canvasID
 		// resizes the canvas to canvasSizexcanvasSize and draws a random polygon on it.
+		// resets the nextbutton element
+		// clears the perimeter textbox
+		// hides the result face
 		generatePoly: function(cID) {
-			canvasID = cID;
+			
+			//reset html elements
+			if(!nextbutton.hasAttribute('disabled')) {
+				nextbutton.toggleAttribute('disabled');
+			}
+			inputbox.value = "";
+			if(!resultimg.classList.contains('hiddenimg')) {
+				resultimg.classList.add('hiddenimg');
+			}
 
-			let len = Math.floor(Math.random()*7)+3;
+			canvasID = cID;
+			let rng = Math.random();
+			let len = 6;
+			if(rng < 0.4) len = 3;
+			else if(rng < 0.8) len = 4;
+			else if(rng < 0.9) len = 5;
 			array = new Array(len);
 			let max = -1, maxidx = 0, sum = 0;
 			for(let i = 0; i < len; i++) {
@@ -227,35 +247,32 @@ const DrawingScope = (function() {
 		
 		// takes in an input box ID and a list of html IDs and sets their src to
 		//   /static/smile.png or static/frown.png depending on if the answer was correct
-		checkPoly: function(inputboxID, lstID) {
-			inputbox = document.getElementById(inputboxID);
+		checkPoly: function() {
 			let sum = 0;
 			for(let i = 0; i < array.length; i++) {
 				sum += array[i];
 			}
-			let correctness = inputbox.value == sum.toString();
-			for(let i = 0; i < lstID.length; i++) {
-				let tmp = document.getElementById(lstID[i]);
-				if(tmp.classList.contains('hiddenimg')) {
-					tmp.classList.remove('hiddenimg');
+			if(resultimg.classList.contains('hiddenimg')) {
+				resultimg.classList.remove('hiddenimg');
+			}
+			if(inputbox.value == sum.toString()) {
+				resultimg.setAttribute('src', '/static/smile.png');
+				if(nextbutton.hasAttribute('disabled')) {
+					nextbutton.toggleAttribute('disabled');
 				}
-				tmp.classList.add('resultimg');
-				if(correctness) {
-					tmp.setAttribute('src', '/static/smile.png');
-				}
-				else {
-					tmp.setAttribute('src', '/static/frown.png');
-				}
+			}
+			else {
+				resultimg.setAttribute('src', '/static/frown.png');
 			}
 		},
 
 		// takes in an input box ID and sets its value to the correct answer
-		showSolution: function(inputboxID) {
+		showSolution: function() {
 			let sum = 0;
 			for(let i = 0; i < array.length; i++) {
 				sum += array[i];
 			}
-			document.getElementById(inputboxID).value = sum.toString();
+			inputbox.value = sum.toString();
 		}
 	};
 })();

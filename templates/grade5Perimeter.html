@@ -28,9 +28,10 @@
 		<label for="perimeter" class="textbox-height40">Perimeter:</label><br>
 		<input type="text" name="perimeter" class="textbox-height40" style="text-align:center" id="inputbox"><br>
 
-		<img class="hiddenimg" id="resultimgleft">
+		<img class="hiddenimg resultimg" id="resultimgleft">
 		<input type="button" onclick="DrawingScope.checkPoly('inputbox', ['resultimgleft'])" value="Submit" class="textbox-height40">
 		<input type="button" onclick="DrawingScope.showSolution('inputbox')" value="Get Answer" class="textbox-height40">
+		<input type="button" onclick="DrawingScope.generatePoly('polygonCanvas')" value="Next Question" class="textbox-height40" id="nextbutton" disabled>
 
 		<script src="/static/PolygonDrawer.js"></script>
 	</main>
