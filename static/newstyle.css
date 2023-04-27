@@ -1,0 +1,83 @@
+html {
+    font-family: Arial, sans-serif;
+    min-height: 100%;
+}
+body {
+    margin: 0px;
+    background-color: #fafafe;
+}
+
+.navbar {
+    position: fixed;
+    text-align: left;
+    width: 100%;
+    background-color: #72d3f7;
+    top: 0;
+}
+.navbar h1 {
+    font-size: 40px;
+    margin: 15px;
+    color: #3a75f2;
+}
+.navbar a {
+    color: #515fce;
+    text-decoration: none;
+    background-color: #63ebff;
+    border-radius: 5px;
+}
+.navbar a:hover {
+    color: #fafafe;
+    background-color: #515fce;
+    transition: 200ms;
+}
+
+.footer {
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    background-color: #72d3f7;
+    bottom: 0;
+    color: #3a75f2;
+    padding: 10px;
+}
+
+.main {
+    margin: 100px auto;
+    width: 70%;
+}
+.subdirgrid {
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.subdirgrid a {
+    text-decoration: none;
+}
+.thumbnail {
+    padding: 3px;
+    width: 274px;
+    height: 220px;
+}
+.thumbnail img {
+    border-radius: 10px;
+}
+.subdirlink {
+    font-size: 30px;
+    width: 280px;
+    height: 280px;
+    text-align: center;
+    color: #ffffff;
+    
+    background-color: #ff9841;
+    border-radius: 10px;
+    margin: 10px
+}
+.subdirlink:hover {
+    background-color: #515fce;
+    transition: 200ms;
+}
+.grade5subdirlink {
+    background-color: #6546a4;
+}

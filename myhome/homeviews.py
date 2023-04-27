@@ -16,4 +16,4 @@ def my_page(request):
 	# Print the result
 	#print(next(res.results).text)	
 	#return HttpResponse(next(res.results).text)
-	return render(request, 'myhome.html')
+	return render(request, 'new/myhome.html')
