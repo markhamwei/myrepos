@@ -80,10 +80,10 @@ const DrawingScope = (function() {
 				}
 			}
 			points = find(maxrad);
-			for(let i = 0; i < points.length; i++) {
-				points[i][0] = halfSize+points[i][0]/minrad*halfSize*0.7;
-				points[i][1] = halfSize+points[i][1]/minrad*halfSize*0.7;
-			}
+			//for(let i = 0; i < points.length; i++) {
+			//	points[i][0] = halfSize+points[i][0]/minrad*halfSize*0.7;
+			//	points[i][1] = halfSize+points[i][1]/minrad*halfSize*0.7;
+			//}
 			tracePoints();
 		}
 	}
@@ -151,21 +151,47 @@ const DrawingScope = (function() {
 			midy += points[i][1];
 		}
 		midx /= points.length; midy /= points.length;
-		let maxx = 0, maxy = 0;
+		//let maxx = 0, maxy = 0;
+		//for(let i = 0; i < points.length; i++) {
+		//	points[i][0] -= midx;
+		//	points[i][1] -= midy;
+		//	if(points[i][0]*points[i][0]+points[i][1]*points[i][1] > maxx*maxx + maxy*maxy) {
+		//		maxx = points[i][0];
+		//		maxy = points[i][1];
+		//	}
+		//}
+		//let maxlen = Math.sqrt(maxx*maxx+maxy*maxy);
+		//for(let i = 0; i < points.length; i++) {
+		//	points[i][0] = points[i][0]/maxlen*halfSize*0.7+halfSize;
+		//	points[i][1] = points[i][1]/maxlen*halfSize*0.7+halfSize;
+		//}
+		tracePoints();
+	}
+
+	// tracePoints helperfunction
+	// postprocess: centralizes the polygon on the screen and scales the polygon appropriately
+	//   (should reach at most 70% of the canvas)	
+	function centralizePoints() {
+		let sumx = 0, sumy = 0;
 		for(let i = 0; i < points.length; i++) {
-			points[i][0] -= midx;
-			points[i][1] -= midy;
-			if(points[i][0]*points[i][0]+points[i][1]*points[i][1] > maxx*maxx + maxy*maxy) {
-				maxx = points[i][0];
-				maxy = points[i][1];
+			sumx += points[i][0];
+			sumy += points[i][1];
+		}
+		sumx /= points.length;
+		sumy /= points.length;
+		let maxdist = 0;
+		for(let i = 0; i < points.length; i++) {
+			points[i][0] -= sumx;
+			points[i][1] -= sumy;
+			if(points[i][0]*points[i][0]+points[i][1]*points[i][1]>maxdist) {
+				maxdist = points[i][0]*points[i][0]+points[i][1]*points[i][1];
 			}
 		}
-		let maxlen = Math.sqrt(maxx*maxx+maxy*maxy);
+		maxdist = Math.sqrt(maxdist);
 		for(let i = 0; i < points.length; i++) {
-			points[i][0] = points[i][0]/maxlen*halfSize*0.7+halfSize;
-			points[i][1] = points[i][1]/maxlen*halfSize*0.7+halfSize;
+			points[i][0] = halfSize + points[i][0]/maxdist*halfSize*0.7;
+			points[i][1] = halfSize + points[i][1]/maxdist*halfSize*0.7;
 		}
-		tracePoints();
 	}
 
 	// Helper function
@@ -183,6 +209,9 @@ const DrawingScope = (function() {
 	// Resizes the canvas to canvasSizexcanvasSize and the polygon onto the canvas
 	// Additionally draws the side lengths of the polygons
 	function tracePoints() {
+
+		centralizePoints();
+
 		canvas = document.getElementById(canvasID);
 		canvas.setAttribute('width', canvasSize.toString());
 		canvas.setAttribute('height', canvasSize.toString());

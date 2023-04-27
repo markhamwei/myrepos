@@ -17,7 +17,7 @@
 		}
 	</style>
 </head>
-<body>
+<body body onload="AreaScope.generatePoly('polygonCanvas')">
 	<header>
 		<h2>
 			<a href="/">Home</a>/<a href="/grade5/home/">Grade5</a>/<a href="/grade5/perimeterarea/">Perimeter&Area</a>/Area
@@ -25,8 +25,23 @@
 	</header>
 	<br><br><br>
 	
-    
+    <canvas id="polygonCanvas"></canvas><br>
+    <label for="area" class="textbox-height40">Area:</label><br>
+    <input type="text" name="area" class="textbox-height40" style="text-align:center" id="inputbox"><br>
 
+    <img class="hiddenimg resultimg" id="resultimgleft">
+    <input type="button" onclick="AreaScope.checkPoly('inputbox', ['resultimgleft'])" value="Submit" id="submitbutton" class="textbox-height40">
+    <input type="button" onclick="AreaScope.showSolution('inputbox')" value="Get Answer" class="textbox-height40">
+    <input type="button" onclick="AreaScope.generatePoly('polygonCanvas')" value="Next Question" class="textbox-height40" id="nextbutton" disabled>
+
+    <script src="/static/AreaDrawer.js"></script>
+	<script>
+		document.getElementById("inputbox").addEventListener("keyup", function(event) {
+			if(event.key === 'Enter') {
+				document.getElementById("submitbutton").click();
+			}
+		})
+	</script>
 	<br><br><br>
 	<footer>
 		&copy; {{ year }} Happy Math. All rights reserved.
