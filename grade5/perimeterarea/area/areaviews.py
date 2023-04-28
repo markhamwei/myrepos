@@ -7,4 +7,4 @@ from datetime import datetime
 
 def area_page(request):
 	context = { 'year' : '2023' }
-	return render(request, 'grade5Area.html', context)
+	return render(request, 'new/grade5Area.html', context)

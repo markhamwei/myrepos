@@ -7,4 +7,4 @@ from datetime import datetime
 
 def perimeter_page(request):
 	context = { 'year' : '2023' }
-	return render(request, 'grade5Perimeter.html', context)
+	return render(request, 'new/grade5Perimeter.html', context)

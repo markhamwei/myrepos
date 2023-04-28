@@ -81,3 +81,49 @@ body {
 .grade5subdirlink {
     background-color: #6546a4;
 }
+
+.flexhorizontal {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.flexvertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.resultimg {
+    visibility: visible;
+    width: 40px;
+    height: 40px;
+}
+.hiddenimg {
+    visibility: hidden;
+}
+.fontsize40 {
+    font-size: 40px;
+}
+
+.main .button {
+    background-color: #ff9841;
+    color: #515fce;
+    border-radius: 7px;
+    border-width: 0;
+}
+.main .button:hover {
+    color: #fafafe;
+    background-color: #3a75f2;
+    transition: 200ms;
+}
+.main .label {
+    color: #ff9841;
+}
+.main .textfield {
+    border-radius: 7px;
+    border-color: #ff9841;
+    border-style: solid;
+}
+.main .textfield:focus {
+    outline: #ff9841;
+}
