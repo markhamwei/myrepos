@@ -5,7 +5,26 @@ const VolumeScope = (function() {
 	const halfSize = 375;
 	
 	var volume;
-	var points;
+	var lengthdata; // [length, base, height]
+	// length is drawn from C (2) to B (1)
+	// base is drawn from G (6) to F (5)
+	// height is drawn from B (1) to G (6)
+	var lengthdraw = [[2,1],[6,5],[1,6]];
+	var points; // [A B C D E F G] where the 7 points make up the following diagram
+	/*  
+	      __(C)-----(D)
+	  __--    __--   |
+	(B)-----(A)      |
+	 |       |       |
+	 |       |    __(E)
+	 |       |__--
+	(G)-----(F)
+	*/
+	var axismask = [[1,1,1],[1,0,1],[0,0,1],[0,1,1],[0,1,0],[1,1,0],[1,0,0]];
+	// if we were a perfect cube, then points=axismask (before projecting)
+
+	var cameraYaw = Math.PI/4; // yaw of camera
+	var tickselapsed = 0; //number of times drawPrism was called
 
 	var canvasID;
 	var canvas;
@@ -15,7 +34,43 @@ const VolumeScope = (function() {
 	var nextbutton = document.getElementById('nextbutton');
 	var resultimg = document.getElementById('resultimgleft');
 
-	
+	// takes in 2 matrices of dimensions nxm and mxr
+	// returns the product of those two matrices (nxr)
+	function matrixmult(A, B) {
+		let C = new Array(A.length);
+		for(let i = 0; i < A.length; i++) {
+			C[i] = new Array(B[0].length);
+			for(let i2 = 0; i2 < B[0].length; i2++) {
+				C[i][i2] = 0;
+				for(let i3 = 0; i3 < B.length; i3++) {
+					C[i][i2] += A[i][i3] * B[i3][i2];
+				}
+			}
+		}
+		return C;
+	}
+
+	// takes in 3 numbers - a point in 3d space
+	// x and y are horizontal axes, z is vertical axis
+	// takes in 2 angles - the yaw and pitch we wish to rotate by
+	// returns the point's rotation
+	function rotate(x, y, z, yaw, pitch) {
+		let V = matrixmult(matrixmult(
+			[
+				[Math.cos(pitch),0,Math.sin(pitch)],
+				[0,1,0],
+				[-Math.sin(pitch),0,Math.cos(pitch)]
+			],
+			[
+				[Math.cos(yaw),-Math.sin(yaw),0],
+				[Math.sin(yaw),Math.cos(yaw),0],
+				[0,0,1]
+			]
+		),
+		[[x],[y],[z]]
+		);
+		return [V[0][0],V[1][0],V[2][0]];
+	}
 	
 	// tracePoints helperfunction
 	// postprocess: centralizes the polygon on the screen and scales the polygon appropriately
@@ -69,9 +124,14 @@ const VolumeScope = (function() {
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		context.beginPath();
 
-		context.moveTo(points[0][0], points[0][1]);
+		context.moveTo(points[6][0], points[6][1]);
 		for(let i = 1; i < points.length; i++) {
 			context.lineTo(points[i][0], points[i][1]);
+		}
+
+		for(let i = 1; i < points.length; i+=2) {
+			context.moveTo(points[0][0],points[0][1]);
+			context.lineTo(points[i][0],points[i][1]);
 		}
 
 		context.closePath();
@@ -80,8 +140,29 @@ const VolumeScope = (function() {
 
 		context.font='35px verdana';
 		
+		for(let i = 0; i < 3; i++) {
+			drawLength(points[lengthdraw[i][0]][0],points[lengthdraw[i][0]][1],points[lengthdraw[i][1]][0],points[lengthdraw[i][1]][1], lengthdata[i]);
+		}
 	}
 	return {
+
+		// generatePoly helper function
+		// extrapolates lengthdata to points in 3 dimensions and draws them onto the canvas
+		// additionally updates yaw slightly
+		drawPrism: function() {
+
+			tickselapsed += 1;
+
+			points = new Array(axismask.length);
+			for(let i = 0; i < axismask.length; i++) {
+				points[i] = new Array(3);
+				for(let i2 = 0; i2 < 3; i2++) points[i][i2] = axismask[i][i2]*lengthdata[i2];
+				points[i] = rotate(points[i][0],points[i][1],points[i][2],-cameraYaw+Math.sin(tickselapsed/100)/10,Math.PI/10);
+				points[i] = [points[i][1], -points[i][2]];
+			}
+
+			tracePoints();
+		},
 
 		// Takes in a canvasID
 		// resizes the canvas to canvasSizexcanvasSize and draws a random polygon on it.
@@ -101,9 +182,16 @@ const VolumeScope = (function() {
 
 			canvasID = cID;
 			
-			
+			lengthdata = [
+				Math.floor(Math.random()*10)+1,
+				Math.floor(Math.random()*10)+1,
+				Math.floor(Math.random()*10)+1
+			]
+			volume = lengthdata[0]*lengthdata[1]*lengthdata[2];
 
-			tracePoints();
+			setInterval(() => {
+				this.drawPrism();
+			}, 50);
 		},
 		
 		// takes in an input box ID and a list of html IDs and sets their src to
