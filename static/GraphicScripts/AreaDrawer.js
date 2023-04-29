@@ -171,20 +171,20 @@ const AreaScope = (function() {
 		},
 		
 		// takes in an input box ID and a list of html IDs and sets their src to
-		//   /static/smile.png or static/frown.png depending on if the answer was correct
+		//   /static/img/smile.png or static/img/frown.png depending on if the answer was correct
 		checkPoly: function() {
 			
 			if(resultimg.classList.contains('hiddenimg')) {
 				resultimg.classList.remove('hiddenimg');
 			}
 			if(!isNaN(inputbox.value) && Math.abs(parseFloat(inputbox.value)-area)<1e-5) {
-				resultimg.setAttribute('src', '/static/smile.png');
+				resultimg.setAttribute('src', '/static/img/smile.png');
 				if(nextbutton.hasAttribute('disabled')) {
 					nextbutton.toggleAttribute('disabled');
 				}
 			}
 			else {
-				resultimg.setAttribute('src', '/static/frown.png');
+				resultimg.setAttribute('src', '/static/img/frown.png');
 			}
 		},
 

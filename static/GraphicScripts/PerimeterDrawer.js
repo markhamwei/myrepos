@@ -275,7 +275,7 @@ const DrawingScope = (function() {
 		},
 		
 		// takes in an input box ID and a list of html IDs and sets their src to
-		//   /static/smile.png or static/frown.png depending on if the answer was correct
+		//   /static/img/smile.png or static/img/frown.png depending on if the answer was correct
 		checkPoly: function() {
 			let sum = 0;
 			for(let i = 0; i < array.length; i++) {
@@ -285,13 +285,13 @@ const DrawingScope = (function() {
 				resultimg.classList.remove('hiddenimg');
 			}
 			if(inputbox.value == sum.toString()) {
-				resultimg.setAttribute('src', '/static/smile.png');
+				resultimg.setAttribute('src', '/static/img/smile.png');
 				if(nextbutton.hasAttribute('disabled')) {
 					nextbutton.toggleAttribute('disabled');
 				}
 			}
 			else {
-				resultimg.setAttribute('src', '/static/frown.png');
+				resultimg.setAttribute('src', '/static/img/frown.png');
 			}
 		},
 

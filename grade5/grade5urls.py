@@ -12,5 +12,6 @@ urlpatterns = [
     path("length/", include('grade5.length.lengthurls')),
     path("time/", include('grade5.time.timeurls')),
 	path("perimeterarea/", include('grade5.perimeterarea.perimeterareaurls')),
-    path("fractions/", include('grade5.fractions.grade5fractionsurls'))
+    path("fractions/", include('grade5.fractions.grade5fractionsurls')),
+    path("volume/", include('grade5.volume.volumeurls'))
 ]
