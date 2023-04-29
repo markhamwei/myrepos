@@ -157,7 +157,7 @@ const VolumeScope = (function() {
 			for(let i = 0; i < axismask.length; i++) {
 				points[i] = new Array(3);
 				for(let i2 = 0; i2 < 3; i2++) points[i][i2] = axismask[i][i2]*lengthdata[i2];
-				points[i] = rotate(points[i][0],points[i][1],points[i][2],-cameraYaw+Math.sin(tickselapsed/100)/10,Math.PI/10);
+				points[i] = rotate(points[i][0],points[i][1],points[i][2],-cameraYaw+Math.sin(tickselapsed/20)/10,Math.PI/10);
 				points[i] = [points[i][1], -points[i][2]];
 			}
 
@@ -188,7 +188,8 @@ const VolumeScope = (function() {
 				Math.floor(Math.random()*10)+1
 			]
 			volume = lengthdata[0]*lengthdata[1]*lengthdata[2];
-
+			
+			clearInterval();
 			setInterval(() => {
 				this.drawPrism();
 			}, 50);
