@@ -44,7 +44,7 @@ def length_page(request):
             context['number1'] = words[0]
         context['flag'] = '='
         context['cmd'] = 'Submit'
-        return render(request, 'grade5Length.html', context)
+        return render(request, 'new/grade5Length.html', context)
     if (state == 1):  # which means user cliked submit in the initial page
         submittedValue = request.GET['Submit']
         num1 = request.GET['num1']
@@ -77,4 +77,4 @@ def length_page(request):
         else:
             context['button2'] = ''
 
-        return render(request, 'grade5Length.html', context)
+        return render(request, 'new/grade5Length.html', context)

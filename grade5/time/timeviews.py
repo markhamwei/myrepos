@@ -79,7 +79,7 @@ def time_page(request):
         context['flag'] = ''
         context['cmd'] = 'Submit'
         context['button2'] = ''
-        return render(request, 'grade5Clock.html', context)
+        return render(request, 'new/grade5Clock.html', context)
     if (state == 1):  # which means user cliked submit in the initial page
         context['type'] = request.GET['type']
         if (context['type'] == 'picture'):
@@ -153,4 +153,4 @@ def time_page(request):
         else:
             context['button2'] = ''
 
-        return render(request, 'grade5Clock.html', context)
+        return render(request, 'new/grade5Clock.html', context)
