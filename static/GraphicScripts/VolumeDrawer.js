@@ -29,6 +29,7 @@ const VolumeScope = (function() {
 	var canvasID;
 	var canvas;
 	var context;
+	var intervl;
 
 	var inputbox = document.getElementById('inputbox');
 	var nextbutton = document.getElementById('nextbutton');
@@ -189,8 +190,8 @@ const VolumeScope = (function() {
 			]
 			volume = lengthdata[0]*lengthdata[1]*lengthdata[2];
 			
-			clearInterval();
-			setInterval(() => {
+			clearInterval(intervl);
+			intervl = setInterval(() => {
 				this.drawPrism();
 			}, 50);
 		},
