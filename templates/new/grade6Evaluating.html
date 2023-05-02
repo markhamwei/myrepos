@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Math</title>
+    <link rel="stylesheet" type="text/css" href="/static/newstyle.css">
+    
+    <style>
+        table {
+            /* border: 1px solid; */
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding: 3px;
+            font-size: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <h1>
+            <a href="/">Happy Math</a>
+            >
+            <a href="/grade6/home/">Grade 6</a>
+            >
+            <a href="/grade6/variables/">Variables</a>
+            >
+            Evaluation
+        </h1>
+    </div>
+
+    <div class="main">
+        <div class="flexhorizontal">
+            <form action="/grade5/addition/">
+
+            </form>
+            <div style="width:50px"></div>
+            <div>
+                {{ definitions }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        &copy; {{ year }} Happy Math. All rights reserved.
+    </div>
+</body>
+
+</html>

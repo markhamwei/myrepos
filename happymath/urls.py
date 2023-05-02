@@ -24,4 +24,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("playground/", include('playground.myurls')),
     path("grade5/", include('grade5.grade5urls')),
+    path("grade6/", include('grade6.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
