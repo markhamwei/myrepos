@@ -6,19 +6,6 @@
     <meta charset="UTF-8">
     <title>Happy Math</title>
     <link rel="stylesheet" type="text/css" href="/static/newstyle.css">
-    
-    <style>
-        table {
-            /* border: 1px solid; */
-            width: 100%;
-        }
-
-        th,
-        td {
-            padding: 3px;
-            font-size: 40px;
-        }
-    </style>
 </head>
 
 <body>
@@ -35,17 +22,36 @@
     </div>
 
     <div class="main">
-        <div class="flexhorizontal">
-            <form action="/grade5/addition/">
-
-            </form>
-            <div style="width:50px"></div>
-            <div>
-                {{ definitions }}
+        <form action="" autocomplete="off">
+            <div class="flexhorizontal">
+                <div class="flexvertical">
+                    <div class="flexhorizontal">
+                        <div class="fontsize40">
+                            {{ problem }}
+                        </div>
+                        <div style="width:50px" class="flexhorizontal">
+                            <div style="width: 2px; background: black;"></div>
+                        </div>
+                        <div class="fontsize40">
+                            {{ definitions }}
+                        </div>
+                    </div>
+                    <div style="height: 20px"></div>
+                    <div class="flexhorizontal">
+                        <label for="answer" class="fontsize40 label">=</label>
+                        <div style="width: 10px"></div>
+                        <input type="text" name="response" class="fontsize40 textfield" style="width: 150px" value="{{ response }}">
+                        <div style="width: 10px"></div>
+                        <input type="Submit" name="submit" value="Submit!" class="fontsize40 button">
+                    </div>
+                </div>
             </div>
-        </div>
+            <input type="hidden" name="problem" value="{{ problem }}">
+            <input type="hidden" name="definitions" value="{{ definitions }}">
+            <input type="hidden" name="answer" value="{{ answer }}">
+        </form>
     </div>
-    
+
     <div class="footer">
         &copy; {{ year }} Happy Math. All rights reserved.
     </div>

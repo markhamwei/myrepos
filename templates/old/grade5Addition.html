@@ -10,36 +10,35 @@
         /* border: 1px solid; */
         width: 35%;
     }
-    th,td {
-        padding: 3px;
+  th,
+  td {
+         padding: 3px;
         font-size: 40px;
-    }
+  }
 </style>
 </head>
 
 <body>
   <header>
-    <h2><a href="/">Home</a>/<a href="/grade5/home/">Grade 5</a>/<a href="/grade5/fractions/home/">Fractions</a>/Identify</h2>
+    <h2><a href="/">Home</a>/<a href="/grade5/home/">Grade 5</a>/Addition</h2>
   </header>
   <br><br><br>
 
   <main>
-    <form action="/grade5/fractions/identify/">
+    <form action="/grade5/addition/">
       <table>
-        <tr><td style="text-align: center;" colspan="2">
-            <canvas id="fractionCanvas" width="50" height="100"></canvas>
-            <script src="/static/GraphicScripts/FractionsDrawer.js"></script>
-            <script>drawFraction("fractionCanvas", "3", "5", 40)</script>
-        </td></tr>
+        <tr><td></td><td style="text-align: right;">{{ number1 }}</td></tr>
+        <tr><td style="text-align: right;">+</td><td style="text-align: right;">{{ number2 }}</td></tr>
+        <tr><td colspan="2"><hr></td></tr>
         <tr><td style="text-align: right;">
 		{% if flag == '=' %}
 			{{ flag }}
 			{% endif %}
 		{% if flag == 'x' %}
-			<img src="{% static 'frown.png' %}" class="resultimg">
+			<img src="{% static 'img/frown.png' %}" class="resultimg">
 			{% endif %}
 		{% if flag == 'v' %}
-			<img src = "{% static 'smile.png' %}" class="resultimg">
+			<img src = "{% static 'img/smile.png' %}" class="resultimg">
 			{% endif %}
 		</td><td style="text-align: right;">
           <input type="text" id="answer" name="answer" value="{{ answer }}" size="3" 
