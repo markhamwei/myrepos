@@ -31,11 +31,19 @@ def evaluating_page(request):
         'definitions':''
         }
     if('response' in input):
-        context['state'] = 'correct' if input['response'] == input['answer'] else 'incorrect'
-        context['problem'] = input['problem']
-        context['definitions'] = input['definitions']
-        context['response'] = input['response']
-        context['answer'] = input['answer']
+        if(input['submit'] == 'Submit!'):
+            context['state'] = 'correct' if input['response'] == input['answer'] else 'incorrect'
+            context['problem'] = input['problem']
+            context['definitions'] = input['definitions']
+            context['response'] = input['response']
+            context['answer'] = input['answer']
+        elif(input['submit'] == 'Get answer!'):
+            context['state'] = 'correct'
+            context['problem'] = input['problem']
+            context['definitions'] = input['definitions']
+            context['response'] = input['response']
+            context['answer'] = input['answer']
+
     else:
         pool = random.sample('abcdefghjkmnpqrsuvwyz', random.randint(1, 3))
         vars = {}
