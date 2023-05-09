@@ -4,5 +4,6 @@ from . import variablesviews
 
 urlpatterns = [
     path('', variablesviews.variables_home),
-    path('evaluating', include('grade6.variables.evaluating.evaluatingurls'))
+    path('evaluating', include('grade6.variables.evaluating.evaluatingurls')),
+    path('basicsolving', include('grade6.variables.basicsolving.basicsolvingurls'))
 ]

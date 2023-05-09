@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Math</title>
+    <link rel="stylesheet" type="text/css" href="/static/newstyle.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <h1>
+            <a href="/">Happy Math</a>
+            >
+            <a href="/grade6/home/">Grade 6</a>
+            >
+            <a href="/grade6/variables/">Variables</a>
+            >
+            Basic Solving
+        </h1>
+    </div>
+
+    <div class="main">
+        <form action="" autocomplete="off">
+            <div class="flexhorizontal">
+				<div class="flexvertical">
+                    <div class="flexhorizontal">
+                        <div class="fontsize40">
+                            {{ problem }}
+                        </div>
+                    </div>
+                    <div style="height: 20px"></div>
+                    <div class="flexhorizontal">
+
+                        <label for="answer" class="fontsize40 label">{{ varname }} =</label>
+                        <div style="width: 10px"></div>
+                        <input type="text" name="response" class="fontsize40 textfield" style="width: 150px" value="{{ response }}">
+                        <div style="width: 10px"></div>
+                        <input type="Submit" name="submit" value="Submit!" class="fontsize40 button">
+                    </div>
+                    <div style="height: 10px"></div>
+                    <div class="flexhorizontal">
+                        {% if state == 'correct' %}
+                        <img src="{% static 'img/smile.png' %}" class="resultimg">
+                        {% endif %}
+                        {% if state == 'incorrect' %}
+                        <img src="{% static 'img/frown.png' %}" class="resultimg">
+                        {% endif %}
+                        <div style="width: 10px"></div>
+                        {% if state == 'correct' %}
+                        <a href="/grade6/variables/basicsolving" class="fontsize40 button" style="text-decoration: none">Next Question!</a>
+                        {% endif %}
+                        {% if state == 'incorrect' %}
+                        <input type="Submit" name="submit" value="Get answer!" class="fontsize40 button">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="problem" value="{{ problem }}">
+            <input type="hidden" name="varname" value="{{ varname }}">
+            <input type="hidden" name="answer" value="{{ answer }}">
+
+        </form>
+    </div>
+
+    <div class="footer">
+        &copy; {{ year }} Happy Math. All rights reserved.
+    </div>
+</body>
+
+</html>
