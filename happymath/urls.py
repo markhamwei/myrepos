@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("", main_views.my_page),
+    path("", include('accounts.urls')),
     path("admin/", admin.site.urls),
     path("playground/", include('playground.myurls')),
     path("grade5/", include('grade5.grade5urls')),

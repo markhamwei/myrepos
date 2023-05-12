@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Happy Math</title>
+	<link rel="stylesheet" type="text/css" href="/static/newstyle.css">
+</head>
+<div class="navbar">
+	<h1>
+		<a href="/">Happy Math</a>
+		>
+		Register
+	</h1>
+</div>
+<div class="main">
+	<form action="register/">
+		<div class="flexhorizontal">
+			<div class="flexvertical">
+				<div class="flexhorizontal">
+					<div class="flexvertical">
+						<label for="email" class="fontsize30 label" style="text-align: right">Email: </label>
+						<div style="height: 5px"></div>
+						<label for="username" class="fontsize30 label" style="text-align: right">Username: </label>
+						<div style="height: 5px"></div>
+						<label for="password" class="fontsize30 label" style="text-align: right">Password: </label>
+					</div>
+					<div style="width: 5px"></div>
+					<div class="flexvertical">
+						<input type="text" name="email" class="textfield fontsize30">
+						<div style="height: 5px"></div>
+						<input type="text" name="username" class="textfield fontsize30">
+						<div style="height: 5px"></div>
+						<input type="password" name="password" class="textfield fontsize30">
+					</div>
+				</div>
+				<div style="height: 5px"></div>
+				<div class="flexhorizontal">
+					<input type="submit" name="submit" class="button fontsize40" value="Submit!" style="width: 300px">
+				</div>
+				<div style="height: 5px"></div>
+				<div class="flexhorizontal">
+					<a href="/login">Already have an account?</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+</html>

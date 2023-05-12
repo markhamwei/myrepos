@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Happy Math</title>
+	<link rel="stylesheet" type="text/css" href="/static/newstyle.css">
+</head>
+<div class="navbar">
+	<h1>
+		<a href="/">Happy Math</a>
+		>
+		Login
+	</h1>
+</div>
+<div class="main">
+	<form method="post">
+		{% csrf_token %}
+		<div class="flexhorizontal">
+			<div class="flexvertical">
+				{{ form.as_p }}
+				<div style="height: 5px"></div>
+				<div class="flexhorizontal">
+					<input type="submit" name="submit" class="button fontsize40" value="Login" style="width: 300px">
+				</div>
+				<div style="height: 5px"></div>
+				<div class="flexhorizontal">
+					<a href="/register">Haven't made an account yet?</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+</html>
