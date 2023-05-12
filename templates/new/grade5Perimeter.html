@@ -1,65 +1,44 @@
+{% extends "base/default.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Happy Math</title>
-	<link rel="stylesheet" type="text/css" href="/static/newstyle.css">
-</head>
-<body onload="DrawingScope.generatePoly('polygonCanvas')">
-	<div class="navbar">
-		<h1>
-			<a href="/">Happy Math</a>
-			>
-			<a href="/grade5/home/">Grade5</a>
-			>
-			<a href="/grade5/perimeterarea/">Perimeter&Area</a>
-			>
-			Perimeter
-		</h1>
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade5/home/">Grade5</a>
+>
+<a href="/grade5/perimeterarea/">Perimeter&Area</a>
+>
+Perimeter
+{% endblock %}
+{% block content %}
+<canvas id="polygonCanvas"></canvas><br>
+<div class="flexvertical">
+	<div class="flexhorizontal">
+		<label for="perimeter" class="fontsize40 label">Perimeter:</label>
+		<img class="hiddenimg resultimg" id="resultimgleft">
 	</div>
-	
-	<div class="main">
+	<input type="text" name="perimeter" class="fontsize40 textfield" style="text-align:center" id="inputbox">
+	<div style="margin:4px">
 		<div class="flexhorizontal">
-			<canvas id="polygonCanvas"></canvas><br>
+			<input type="button" onclick="DrawingScope.checkPoly()" value="Submit" id="submitbutton"
+				class="fontsize40 button">
+			<div style="width: 5px"></div>
 			<div class="flexvertical">
-				<div class="flexhorizontal">
-					<label for="perimeter" class="fontsize40 label">Perimeter:</label>
-					<img class="hiddenimg resultimg" id="resultimgleft">
-				</div>
-				<input type="text" name="perimeter" class="fontsize40 textfield" style="text-align:center" id="inputbox">
-				<div style="margin:4px">
-					<div class="flexhorizontal">
-						<input type="button" onclick="DrawingScope.checkPoly()" value="Submit" id="submitbutton"
-						class="fontsize40 button">
-						<div style="width: 5px"></div>				
-						<div class="flexvertical">
-							<input type="button" onclick="DrawingScope.showSolution()" value="Get Answer"
-							class="fontsize40 button">
-							<div style="height: 5px"></div>	
-							<input type="button" onclick="DrawingScope.generatePoly('polygonCanvas')"
-							value="Next Question" class="fontsize40 button" id="nextbutton" disabled>
-						</div>
-					</div>
-				</div>
-
+				<input type="button" onclick="DrawingScope.showSolution()" value="Get Answer" class="fontsize40 button">
+				<div style="height: 5px"></div>
+				<input type="button" onclick="DrawingScope.generatePoly('polygonCanvas')" value="Next Question"
+					class="fontsize40 button" id="nextbutton" disabled>
 			</div>
 		</div>
-
-
 	</div>
-				
-	<script src="/static/GraphicScripts/PerimeterDrawer.js"></script>
 
-	<script>
-		document.getElementById("inputbox").addEventListener("keyup", function(event) {
-			if(event.key === 'Enter') {
-				document.getElementById("submitbutton").click();
-			}
-		})
-	</script>
-	<div class="footer">
-		&copy; {{ year }} Happy Math. All rights reserved.
-	</div>
-</body>
-</html>
+</div>
+<script src="/static/GraphicScripts/PerimeterDrawer.js" onload="DrawingScope.generatePoly('polygonCanvas')"></script>
+
+<script>
+	document.getElementById("inputbox").addEventListener("keyup", function (event) {
+		if (event.key === 'Enter') {
+			document.getElementById("submitbutton").click();
+		}
+	})
+</script>
+{% endblock %}

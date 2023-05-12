@@ -1,45 +1,29 @@
+{% extends "base/default.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Happy Math</title>
-		<link rel="stylesheet" type="text/css" href="/static/newstyle.css">
-	</head>
-	<body>
-		<div class="navbar">
-			<h1>
-				<a href="/">Happy Math</a>
-				>
-				<a href="/grade5/home/">Grade5</a>
-				>
-				Perimeter&Area
-			</h1>
-		</div>
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade5/home/">Grade5</a>
+>
+Perimeter&Area
+{% endblock %}
+{% block content %}
+<div class="subdirgrid">
+	<a href="/grade5/perimeterarea/perimeter">
+		<div class="subdirlink">
+			<div class="thumbnail">
 
-		<div class="main">
-			<div class="subdirgrid">
-				<a href="/grade5/perimeterarea/perimeter">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-    
-                        </div>
-                        Perimeter
-                    </div>
-                </a>
-				<a href="/grade5/perimeterarea/area">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-    
-                        </div>
-                        Area
-                    </div>
-                </a>
 			</div>
+			Perimeter
 		</div>
+	</a>
+	<a href="/grade5/perimeterarea/area">
+		<div class="subdirlink">
+			<div class="thumbnail">
 
-		<div class="footer">
-			&copy; {{ year }} Happy Math. All rights reserved.
+			</div>
+			Area
 		</div>
-	</body>
-</html>
+	</a>
+</div>
+{% endblock %}

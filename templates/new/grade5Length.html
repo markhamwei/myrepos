@@ -1,83 +1,50 @@
+{% extends "base/default.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Happy Math</title>
-    <link rel="stylesheet" type="text/css" href="/static/newstyle.css">
-    <style>
-        table {
-            /* border: 1px solid; */
-            width: 100%;
-        }
-
-        th,
-        td {
-            padding: 3px;
-            font-size: 40px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="navbar">
-        <h1>
-            <a href="/">Happy Math</a>
-            >
-            <a href="/grade5/home/">Grade 5</a>
-            >
-            Length
-        </h1>
-    </div>
-
-    <div class="main">
-        <div class="flexhorizontal">
-            <form action="/grade5/length/">
-                <table>
-                    <tr>
-                        <td></td>
-                        <td style="text-align: right;">{{ number1 }}</td>
-                        <td>{{ unit1 }}</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right;">
-                            {% if flag == '=' %}
-                            {{ flag }}
-                            {% endif %}
-                            {% if flag == 'x' %}
-                            <img src="{% static 'img/frown.png' %}" class="resultimg">
-                            {% endif %}
-                            {% if flag == 'v' %}
-                            <img src="{% static 'img/smile.png' %}" class="resultimg">
-                            {% endif %}
-                        </td>
-                        <td style="text-align: right;">
-                            <input type="text" id="answer" name="answer" value="{{ answer }}" size="3"
-                                class="fontsize40 textfield" style="text-align: right;">
-                        </td>
-                        <td>{{ unit2 }}</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right;" colspan="3">
-                            {% if button2 == "GetAnswer" %}
-                            <input type="Submit" name="Submit" value="{{ button2 }}" class="fontsize40 button">
-                            {% endif %}
-                            <input type="Submit" name="Submit" value="{{ cmd }}" class="fontsize40 button">
-                        </td>
-                    </tr>
-                </table>
-                <input type="hidden" id="state" name="state" value="{{ state }}">
-                <input type="hidden" id="num1" name="num1" value="{{ number1 }}">
-                <input type="hidden" id="unit1" name="unit1" value="{{ unit1 }}">
-                <input type="hidden" id="unit2" name="unit2" value="{{ unit2 }}">
-            </form>
-        </div>
-    </div>
-
-    <div class="footer">
-        &copy; {{ year }} Happy Math. All rights reserved.
-    </div>
-</body>
-
-</html>
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade5/home/">Grade 5</a>
+>
+Length
+{% endblock %}
+{% block content %}
+<form action="/grade5/length/">
+    <table>
+        <tr>
+            <td></td>
+            <td style="text-align: right;" class="fontsize40">{{ number1 }}</td>
+            <td class="fontsize40">{{ unit1 }}</td>
+        </tr>
+        <tr>
+            <td style="text-align: right;" class="fontsize40">
+                {% if flag == '=' %}
+                {{ flag }}
+                {% endif %}
+                {% if flag == 'x' %}
+                <img src="{% static 'img/frown.png' %}" class="resultimg">
+                {% endif %}
+                {% if flag == 'v' %}
+                <img src="{% static 'img/smile.png' %}" class="resultimg">
+                {% endif %}
+            </td>
+            <td style="text-align: right;" class="fontsize40">
+                <input type="text" id="answer" name="answer" value="{{ answer }}" size="3" class="fontsize40 textfield"
+                    style="text-align: right;">
+            </td>
+            <td class="fontsize40">{{ unit2 }}</td>
+        </tr>
+        <tr>
+            <td style="text-align: right;" colspan="3" class="fontsize40">
+                {% if button2 == "GetAnswer" %}
+                <input type="Submit" name="Submit" value="{{ button2 }}" class="fontsize40 button">
+                {% endif %}
+                <input type="Submit" name="Submit" value="{{ cmd }}" class="fontsize40 button">
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="state" name="state" value="{{ state }}">
+    <input type="hidden" id="num1" name="num1" value="{{ number1 }}">
+    <input type="hidden" id="unit1" name="unit1" value="{{ unit1 }}">
+    <input type="hidden" id="unit2" name="unit2" value="{{ unit2 }}">
+</form>
+{% endblock %}

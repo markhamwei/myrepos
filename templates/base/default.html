@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Happy Math</title>
+	<link rel="stylesheet" type="text/css" href="/static/newstyle.css">
+	{% block customstyle %}{% endblock %}
+</head>
+<div class="navbar">
+	<h1>
+		{% block title %}{% endblock %}
+	</h1>
+</div>
+<body>
+	<div class="main">
+		<div class="flexhorizontal">
+			{% block content %}{% endblock %}
+		</div>
+	</div>
+	<div class="footer">
+		&copy; 2023 Happy Math. All rights reserved.
+	</div>
+</body>
+</html>

@@ -1,54 +1,38 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Happy Math</title>
-        <link rel="stylesheet" type="text/css" href="/static/newstyle.css">
-    </head>
-    <body>
+{% extends "base/default.html" %}
 
-        <div class="navbar">
-            <h1>
-                <a href="/">Happy Math</a>
-                >
-                <a href="/grade6/home">Grade 6</a>
-                >
-                Variables
-            </h1>
-        </div>
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade6/home">Grade 6</a>
+>
+Variables
+{% endblock %}
 
-        <div class="main">
-            <div class="subdirgrid">
-                <a href="/grade6/variables/evaluating">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Evaluating
-                    </div>
-                </a>
-                <a href="/grade6/variables/basicsolving">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Basic Solving
-                    </div>
-                </a>
-                <a href="/grade6/variables">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Solving Variables
-                    </div>
-                </a>
+{% block content %}
+<div class="subdirgrid">
+    <a href="/grade6/variables/evaluating">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
             </div>
+            Evaluating
         </div>
-    
-        <div class="footer">
-            &copy; 2023 Happy Math. All rights reserved.
+    </a>
+    <a href="/grade6/variables/basicsolving">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Basic Solving
         </div>
-    </body>
-</html>
+    </a>
+    <a href="/grade6/variables">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Solving Variables
+        </div>
+    </a>
+</div>
+{% endblock %}

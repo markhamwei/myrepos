@@ -1,188 +1,171 @@
+{% extends "base/default.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Happy Math</title>
-        <link rel="stylesheet" type="text/css" href="/static/newstyle.css">
-    </head>
-    <body>
+{% block title %}
+<a href="/">Happy Math</a>
+>
+Grade 5
+{% endblock %}
+{% block content %}
+<div class="subdirgrid">
+    <a href="/grade5/addition">
+        <div class="subdirlink">
+            <div class="thumbnail">
 
-        <div class="navbar">
-            <h1>
-                <a href="/">Happy Math</a>
-                >
-                Grade 5
-            </h1>
-        </div>
-
-        <div class="main">
-            <div class="subdirgrid">
-                <a href="/grade5/addition">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-    
-                        </div>
-                        Addition
-                    </div>
-                </a>
-                <a href="/grade5/subtract/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Subtraction
-                    </div>
-                </a>
-                <a href="/grade5/multiply/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Multiplication
-                    </div>
-                </a>
-                <a href="/grade5/divide/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Division
-                    </div>
-                </a>
-                <a href="/grade5/length/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Length/Distance
-                    </div>
-                </a>
-                <a href="/grade5/time/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Time
-                    </div>
-                </a>
-                <a href="/grade5/perimeterarea/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Perimeter/Area
-                    </div>
-                </a>
-                <a href="/grade5/volume">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Volume
-                    </div>
-                </a>
-                <a href="/grade5/fractions/home/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Fractions
-                    </div>
-                </a>
-                <a href="/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Decimals
-                    </div>
-                </a>
-                <a href="/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        money
-                    </div>
-                </a>
-                <a href="/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        2D Shapes
-                    </div>
-                </a>
-                <a href="/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        3D Figures
-                    </div>
-                </a>
-                <a href="/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Angles
-                    </div>
-                </a>
-                <a href="/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Triangles
-                    </div>
-                </a>
-                <a href="/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Grids
-                    </div>
-                </a>
-                <a href="/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Patterning
-                    </div>
-                </a>
-                <a href="/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Equations
-                    </div>
-                </a>
-                <a href="/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Graphs
-                    </div>
-                </a>
-                <a href="/">
-                    <div class="subdirlink">
-                        <div class="thumbnail">
-                            
-                        </div>
-                        Probability
-                    </div>
-                </a>
             </div>
+            Addition
         </div>
-    
-        <div class="footer">
-            &copy; 2023 Happy Math. All rights reserved.
+    </a>
+    <a href="/grade5/subtract/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Subtraction
         </div>
-    </body>
-</html>
+    </a>
+    <a href="/grade5/multiply/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Multiplication
+        </div>
+    </a>
+    <a href="/grade5/divide/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Division
+        </div>
+    </a>
+    <a href="/grade5/length/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Length/Distance
+        </div>
+    </a>
+    <a href="/grade5/time/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Time
+        </div>
+    </a>
+    <a href="/grade5/perimeterarea/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Perimeter/Area
+        </div>
+    </a>
+    <a href="/grade5/volume">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Volume
+        </div>
+    </a>
+    <a href="/grade5/fractions/home/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Fractions
+        </div>
+    </a>
+    <a href="/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Decimals
+        </div>
+    </a>
+    <a href="/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            money
+        </div>
+    </a>
+    <a href="/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            2D Shapes
+        </div>
+    </a>
+    <a href="/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            3D Figures
+        </div>
+    </a>
+    <a href="/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Angles
+        </div>
+    </a>
+    <a href="/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Triangles
+        </div>
+    </a>
+    <a href="/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Grids
+        </div>
+    </a>
+    <a href="/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Patterning
+        </div>
+    </a>
+    <a href="/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Equations
+        </div>
+    </a>
+    <a href="/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Graphs
+        </div>
+    </a>
+    <a href="/">
+        <div class="subdirlink">
+            <div class="thumbnail">
+
+            </div>
+            Probability
+        </div>
+    </a>
+</div>
+{% endblock %}

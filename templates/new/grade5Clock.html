@@ -1,11 +1,6 @@
+{% extends "base/default.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Happy Math</title>
-    <link rel="stylesheet" type="text/css" href="/static/newstyle.css">
+{% block customstyle %}
     <style>
         table {
             /* border: 1px solid; */
@@ -18,20 +13,15 @@
             font-size: 40px;
         }
     </style>
-</head>
-
-<body>
-    <div class="navbar">
-        <h1>
+{% endblock %}
+{% block title %}
             <a href="/">Happy Math</a>
             >
             <a href="/grade5/home/">Grade 5</a>
             >
             Time
-        </h1>
-    </div>
-    <div class="main">
-        <div class="flexhorizontal">
+{% endblock %}
+{% block content %}
             <form action="/grade5/time/">
                 <table>
                     <tr>
@@ -257,11 +247,4 @@
                 <input type="hidden" id="second2" name="second2" value="{{ second2 }}">
                 <input type="hidden" id="type" name="type" value="{{ type }}">
             </form>
-        </div>
-    </div>
-    <div class="footer">
-        &copy; {{ year }} Happy Math. All rights reserved.
-    </div>
-</body>
-
-</html>
+{% endblock %}
