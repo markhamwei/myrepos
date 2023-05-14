@@ -108,18 +108,18 @@ body {
     font-size: 30px;
 }
 
-.main .button {
+.button {
     background-color: #ff9841;
     color: #fafafa;
     border-radius: 7px;
     border-width: 0;
 }
-.main .button:hover {
+.button:hover {
     color: #fafafe;
     background-color: #3a75f2;
     transition: 200ms;
 }
-.main .button:disabled {
+.button:disabled {
     background-color: #c68c16;
     color: #6546a4;
 }

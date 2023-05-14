@@ -9,9 +9,30 @@
 	{% block customstyle %}{% endblock %}
 </head>
 <div class="navbar">
-	<h1>
+	<h1 style="width: 70%; float: left">
 		{% block title %}{% endblock %}
 	</h1>
+	{% if user.is_authenticated %}
+	<h1 style="float: right; text-align: right">
+	Hello, {{ user.get_username }}
+	</h1>
+	<a href="/logout" style="width: 135px; float: right; margin: 15px">
+		<div class="button fontsize40" style="text-align: center">
+			Logout
+		</div>
+	</a>
+	{% else %}
+	<a href="/login" style="width: 110px; float: right; margin: 15px">
+		<div class="button fontsize40" style="text-align: center">
+			Login
+		</div>
+	</a>
+	<a href="/register" style="width: 160px; float: right; margin: 15px">
+		<div class="button fontsize40" style="text-align: center">
+			Register
+		</div>
+	</a>
+	{% endif %}
 </div>
 <body>
 	<div class="main">
