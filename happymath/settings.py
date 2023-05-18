@@ -78,10 +78,10 @@ WSGI_APPLICATION = "happymath.wsgi.application"
 DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db',
-        'USER': 'mydbuser',
-        'PASSWORD': 'tttt1234',
-        'HOST': 'localhost',
+        'NAME': 'postgres',
+        'USER': 'ml',
+        'PASSWORD': 'tttt1234_',
+        'HOST': 'psqldb-markhamwei.postgres.database.azure.com',
         'PORT': '',
     }
 }
