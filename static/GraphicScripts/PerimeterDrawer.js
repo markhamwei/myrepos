@@ -10,6 +10,8 @@ const DrawingScope = (function() {
 	var context;
 	var response_peeked;
 
+	var submitbutton = document.getElementById('submitbutton');
+	var getanswerbutton = document.getElementById('getanswerbutton');
 	var inputbox = document.getElementById('inputbox');
 	var nextbutton = document.getElementById('nextbutton');
 	var resultimg = document.getElementById('resultimgleft');
@@ -251,6 +253,9 @@ const DrawingScope = (function() {
 			if(!resultimg.classList.contains('hiddenimg')) {
 				resultimg.classList.add('hiddenimg');
 			}
+			if(submitbutton.hasAttribute('disabled')) {
+				submitbutton.toggleAttribute('disabled');
+			}
 
 			canvasID = cID;
 			let rng = Math.random();
@@ -327,7 +332,9 @@ const DrawingScope = (function() {
 				if(nextbutton.hasAttribute('disabled')) {
 					nextbutton.toggleAttribute('disabled');
 				}
-				
+				if(!submitbutton.hasAttribute('disabled')) {
+					submitbutton.toggleAttribute('disabled');
+				}
 			}
 			else {
 				resultimg.setAttribute('src', '/static/img/frown.png');
