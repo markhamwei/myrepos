@@ -15,15 +15,16 @@ def perimeter_page(request):
 		context = { 'year' : '2023' }
 		return render(request, 'new/grade5Perimeter.html', context)
 	else:
-		content = json.loads(request.body)
-		field = QuestionResponse.objects.create(
-			user=request.user,
-			question_ID="grade5/perimeterarea/perimeter",
-			question_content=content['question-content'],
-			response=content['response'],
-			correctness=content['correctness'],
-			response_peeked=content['response-peeked'],
-			response_datetime=datetime.datetime.now()
-		)
-		field.save()
+		if(request.user.is_authenticated):
+			content = json.loads(request.body)
+			field = QuestionResponse.objects.create(
+				user=request.user,
+				question_ID="grade5/perimeterarea/perimeter",
+				question_content=content['question-content'],
+				response=content['response'],
+				correctness=content['correctness'],
+				response_peeked=content['response-peeked'],
+				response_datetime=datetime.datetime.now()
+			)
+			field.save()
 		return render(request, 'new/grade5Perimeter.html')
