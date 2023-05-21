@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 #import wolframalpha
 
@@ -16,4 +16,7 @@ def my_page(request):
 	# Print the result
 	#print(next(res.results).text)	
 	#return HttpResponse(next(res.results).text)
-	return render(request, 'new/myhome.html')
+	if(request.user.is_authenticated):
+		return render(request, 'new/myhome.html')
+	else:
+		return redirect('/login')

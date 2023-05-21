@@ -8,6 +8,7 @@ const DrawingScope = (function() {
 	var canvasID;
 	var canvas;
 	var context;
+	var response_peeked;
 
 	var inputbox = document.getElementById('inputbox');
 	var nextbutton = document.getElementById('nextbutton');
@@ -270,7 +271,7 @@ const DrawingScope = (function() {
 			if(2*max >= sum) {
 				array[maxidx] = sum-max-1; //this is to ensure the polygon will always be possible to draw
 			}
-				console.log(array); //DEBUG
+			response_peeked = false;
 			drawPoly();
 		},
 		
@@ -281,6 +282,43 @@ const DrawingScope = (function() {
 			for(let i = 0; i < array.length; i++) {
 				sum += array[i];
 			}
+			function getCookie(name) {
+				let cookieValue = null;
+				if (document.cookie && document.cookie !== '') {
+					const cookies = document.cookie.split(';');
+					for (let i = 0; i < cookies.length; i++) {
+						const cookie = cookies[i].trim();
+						// Does this cookie string begin with the name we want?
+						if (cookie.substring(0, name.length + 1) === (name + '=')) {
+							cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+							break;
+						}
+					}
+				}
+				return cookieValue;
+			}
+			const csrftoken = getCookie('csrftoken');
+			const request = new Request(
+				"",
+				{
+					method: 'POST',
+					headers: {
+						'Content-type': 'application/json; charset=UTF-8',
+						'X-CSRFToken': csrftoken,
+						mode: 'same-origin'
+					},
+					body: JSON.stringify({
+						'response': inputbox.value,
+						'correctness': inputbox.value == sum.toString(),
+						'response-peeked': response_peeked,
+						'question-content': array
+					}),
+				}
+			);
+			fetch(request).then(function(response) {
+				console.log("response submitted!");
+			});
+			
 			if(resultimg.classList.contains('hiddenimg')) {
 				resultimg.classList.remove('hiddenimg');
 			}
@@ -289,9 +327,11 @@ const DrawingScope = (function() {
 				if(nextbutton.hasAttribute('disabled')) {
 					nextbutton.toggleAttribute('disabled');
 				}
+				
 			}
 			else {
 				resultimg.setAttribute('src', '/static/img/frown.png');
+				
 			}
 		},
 
@@ -302,6 +342,7 @@ const DrawingScope = (function() {
 				sum += array[i];
 			}
 			inputbox.value = sum.toString();
+			response_peeked = true;
 		}
 	};
 })();
