@@ -7,10 +7,10 @@
 >
 <a href="/grade5/fractions/home/">Fractions</a>
 >
-Identify
+Simplify
 {% endblock %}
 {% block content %}
-<form action="/grade5/fractions/identify/">
+<form action="/grade5/fractions/simplify/">
     <table>
         <tr>
             <td style="text-align: center;">
@@ -20,10 +20,9 @@ Identify
             </td>
         </tr>
         <tr>
-            <td style="text-align: left;" class="fontsize30">
-                <input type="radio" id="mix" name="fractionType" value="2" {{ mix }}><label for="mix">Mixed Fraction</label><br>
-                <input type="radio" id="improper" name="fractionType" value="0" {{ improper }}><label for="improper">Improper Fraction</label><br>
-                <input type="radio" id="proper" name="fractionType" value="1" {{ proper }}><label for="proper">Proper Fraction</label>
+            <td style="text-align: left;" class="fontsize40">
+                = <input style="height:50px;font-size:40pt;" type="text" name="numerator" maxlength="3" size="1" autocomplete="off" value="{{ usernumber1 }}">/
+                <input style="height:50px;font-size:40pt;" type="text" name="denominator" maxlength="3" size="1" autocomplete="off" value="{{ usernumber2 }}">
             </td>
         </tr>
         <tr>
@@ -49,7 +48,6 @@ Identify
     <input type="hidden" id="num1" name="num1" value="{{ number1 }}">
     <input type="hidden" id="num2" name="num2" value="{{ number2 }}">
     <input type="hidden" id="num3" name="num3" value="{{ number3 }}">
-    <input type="hidden" id="type" name="type" value="{{ fractionType }}">
 </form>
 
 {% endblock %}
