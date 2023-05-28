@@ -24,6 +24,7 @@ admin.site.register(QuestionResponse)
 class Profile(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	registration_date = models.DateTimeField(default=None)
+	expiration_date = models.DateTimeField(default=None)
 	is_premium = models.BooleanField(default=False)
 
 admin.site.register(Profile)
