@@ -1,5 +1,5 @@
 {% extends 'base/default.html' %}
-
+{% load static %}
 {% block title %}
 <a href="/">Happy Math</a>
 >
@@ -11,5 +11,75 @@ Multiple Choice
 {% endblock %}
 
 {% block content %}
+<form action="" autocomplete="off">
+	<div class="flexhorizontal">
+		<div class="flexvertical">
+			<div class="flexhorizontal">
+				<div class="fontsize40">
+					{{ problem }}
+				</div>
+			</div>
+			<div style="height: 20px"></div>
+			<div class="flexhorizontal">
 
+				<label for="answer" class="fontsize40 label">{{ varname }} =</label>
+				<div style="width: 10px"></div>
+				<input type="text" name="response" id="response" class="fontsize40 textfield" style="width: 150px"
+					value="{{ response }}">
+				<div style="width: 10px"></div>
+				<input type="Submit" name="submit" value="Submit!" class="fontsize40 button">
+			</div>
+			<div style="height: 10px"></div>
+			<div class="flexhorizontal">
+				{% if state == 'correct' %}
+				<img src="{% static 'img/smile.png' %}" class="resultimg">
+				{% endif %}
+				{% if state == 'incorrect' %}
+				<img src="{% static 'img/frown.png' %}" class="resultimg">
+				{% endif %}
+				<div style="width: 10px"></div>
+				{% if state == 'correct' %}
+				<a href="/grade6/variables/multiplechoicesolving" class="fontsize40 button"
+					style="text-decoration: none">Next
+					Question!</a>
+				{% endif %}
+				{% if state == 'incorrect' %}
+				<input type="Submit" name="submit" value="Get answer!" class="fontsize40 button">
+				{% endif %}
+			</div>
+
+			<div style="height: 20px"></div>
+
+			<p class="fontsize40 label" style="text-align: center; width: 100%">possible answers:</p>
+			<div style="height: 10px"></div>
+			<div class="flexhorizontal" id="choices">
+				<script async>
+					var ans = Number("{{ answer }}");
+					var rng = JSON.parse("{{ seed }}");
+					var choices = document.getElementById("choices");
+					rng = rng.concat([ans]).sort()
+					for(var i = 0; i < rng.length; i++) {
+						if(i > 0 && rng[i] == rng[i-1]) continue;
+						var newbutton = document.createElement("input");
+						newbutton.type="button";
+						newbutton.value = String(rng[i]);
+						newbutton.classList = ["fontsize40 button"];
+						newbutton.addEventListener("click", ((val) => {
+							return () => {document.getElementById("response").value = val;};
+						})(rng[i]));
+						choices.appendChild(newbutton);
+						var spacer = document.createElement("div");
+						spacer.style="width: 10px";
+						choices.appendChild(spacer);
+					}
+				</script>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="problem" id="hiddenproblem" value="{{ problem }}">
+	<input type="hidden" name="varname" id="hiddenvarname" value="{{ varname }}">
+	<input type="hidden" name="answer" id="hiddenanswer" value="{{ answer }}">
+	<input type="hidden" name="seed" id="seed" value="{{ seed }}">
+
+</form>
 {% endblock %}
