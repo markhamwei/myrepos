@@ -110,3 +110,38 @@ def add_fractions(int1, numerator1, denominator1, int2, numerator2, denominator2
     result[1] = numerator
     result[2] = denominator
     return result
+
+def subtract_fractions(int1, numerator1, denominator1, int2, numerator2, denominator2):
+    """ calculate the subtraction of two fractions, assume the fraction 1 is greater
+    """
+    tmpdenominator = int(math.lcm(denominator1, denominator2))
+    tmpnumerator = int(((numerator1 + (int1 * denominator1)) * (tmpdenominator / denominator1)) -
+                        ((numerator2 + (int2 * denominator2)) * (tmpdenominator / denominator2)))
+    gcd = math.gcd(tmpnumerator, tmpdenominator)
+    denominator = tmpdenominator / gcd
+    numerator = tmpnumerator / gcd
+    result_int = int(numerator / denominator)
+    numerator %= denominator
+    if(numerator == 0):
+        denominator = 0 #use both 0 to represent no fraction part
+    result = [0, 0, 0]
+    result[0] = result_int
+    result[1] = numerator
+    result[2] = denominator
+    return result
+
+def compare_fractions(int1, numerator1, denominator1, int2, numerator2, denominator2):
+    """ Return 1 if fraction1 is greater than franction2
+        Return 0 if fraction1 is equal to fraction2
+        Return -1 if fraction1 is smaller than fraction2
+    """
+    tmpdenominator = int(math.lcm(denominator1, denominator2))
+    num1 = (numerator1 + (int1 * denominator1)) * (tmpdenominator / denominator1)
+    num2 = (numerator2 + (int2 * denominator2)) * (tmpdenominator / denominator2)
+    ret = 0
+    if(num1 > num2):
+        ret = 1
+    else:
+        if(num1 < num2):
+            ret = -1
+    return ret
