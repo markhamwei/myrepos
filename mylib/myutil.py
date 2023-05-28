@@ -28,6 +28,11 @@ def get_randoms(count, min, max):
         randoms.append(random.randint(min, max))
     return randoms
 
+def get_randoms_unique(count, min, max):
+    """create a list of unique random numbers
+    """
+    return random.sample(range(min, max+1), count)
+
 
 def math_query(query):
     client = wolframalpha.Client("GLYJRW-TEH7UK7VYL")
