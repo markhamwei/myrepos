@@ -1,0 +1,73 @@
+{% extends "base/default.html" %}
+{% load static %}
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade5/home/">Grade 5</a>
+>
+<a href="/grade5/fractions/home/">Fractions</a>
+>
+Multiply
+{% endblock %}
+{% block content %}
+<form action="/grade5/fractions/multiply/">
+    <table>
+        <tr>
+            <td>
+                <canvas id="fractionCanvas1" width="100" height="100"></canvas>
+                <script src="/static/GraphicScripts/FractionsDrawer.js"></script>
+                <script>drawFraction("fractionCanvas1", {{ number11 }}, {{ number12 }}, {{ number13 }}, 40)</script>
+            </td>
+            <td style="text-align: center;">
+                <p class="fontsize40">x</p>
+            </td>
+            <td>
+                <canvas id="fractionCanvas2" width="100" height="100"></canvas>
+                <script src="/static/GraphicScripts/FractionsDrawer.js"></script>
+                <script>drawFraction("fractionCanvas2", {{ number21 }}, {{ number22 }}, {{ number23 }}, 40)</script>
+            </td>
+        </tr>
+        <tr>
+        	<td class="fontsize40" rowspan="3" style="text-align: center;"> = </td>
+            <td style="text-align: left;" class="fontsize40" rowspan="3">
+                <input style="height:50px;font-size:40pt;" type="text" name="integer" maxlength="3" size="1" autocomplete="off" value="{{ usernumber1 }}">
+            </td>
+            <td>
+                <input style="height:50px;font-size:40pt;" type="text" name="numerator" maxlength="4" size="1" autocomplete="off" value="{{ usernumber2 }}">
+            </td>
+        </tr>
+        <tr><td><hr></td></tr>
+        <tr>
+        	<td>
+        		<input style="height:50px;font-size:40pt;" type="text" name="denominator" maxlength="4" size="1" autocomplete="off" value="{{ usernumber3 }}">
+        	</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;" colspan="100%">
+                {% if button2 == "GetAnswer" %}
+                <input type="Submit" name="Submit" value="{{ button2 }}" class="fontsize40 button">
+                {% endif %}
+                <input type="Submit" name="Submit" value="{{ cmd }}" class="fontsize40 button">
+            </td>
+        </tr>
+        <tr>
+        	<td style="text-align: center;" colspan="100%">
+       			{% if flag == 'x' %}
+                <img src="{% static 'img/frown.png' %}" class="resultimg">
+                {% endif %}
+                {% if flag == 'v' %}
+                <img src="{% static 'img/smile.png' %}" class="resultimg">
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="state" name="state" value="{{ state }}">
+    <input type="hidden" id="num11" name="num11" value="{{ number11 }}">
+    <input type="hidden" id="num12" name="num12" value="{{ number12 }}">
+    <input type="hidden" id="num13" name="num13" value="{{ number13 }}">
+    <input type="hidden" id="num21" name="num21" value="{{ number21 }}">
+    <input type="hidden" id="num22" name="num22" value="{{ number22 }}">
+    <input type="hidden" id="num23" name="num23" value="{{ number23 }}">
+</form>
+
+{% endblock %}

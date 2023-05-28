@@ -150,3 +150,36 @@ def compare_fractions(int1, numerator1, denominator1, int2, numerator2, denomina
         if(num1 < num2):
             ret = -1
     return ret
+
+def multiply_fractions(int1, numerator1, denominator1, int2, numerator2, denominator2):
+    """ franction1 multiply franction2
+    """
+    tmpnumerator = (int1 * denominator1 + numerator1) * (int2 * denominator2 + numerator2)
+    tmpdenominator = denominator1 * denominator2
+    commFactor = math.gcd(tmpnumerator, tmpdenominator)
+    numerator = int(tmpnumerator / commFactor)
+    denominator = int(tmpdenominator / commFactor)
+    int_result = int(numerator / denominator)
+    numerator %= denominator
+    fraction = [0, 0, 0]
+    fraction[0] = int_result
+    fraction[1] = numerator
+    fraction[2] = denominator
+    return fraction
+
+def divide_fractions(int1, numerator1, denominator1, int2, numerator2, denominator2):
+    """ franction1 divide franction2
+    """
+    tmpnumerator = (int1 * denominator1 + numerator1) * denominator2
+    tmpdenominator = denominator1 * (int2 * denominator2 + numerator2)
+    commFactor = math.gcd(tmpnumerator, tmpdenominator)
+    numerator = int(tmpnumerator / commFactor)
+    denominator = int(tmpdenominator / commFactor)
+    int_result = int(numerator / denominator)
+    numerator %= denominator
+    fraction = [0, 0, 0]
+    fraction[0] = int_result
+    fraction[1] = numerator
+    fraction[2] = denominator
+    return fraction
+
