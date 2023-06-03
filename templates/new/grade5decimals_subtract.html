@@ -1,0 +1,60 @@
+{% extends "base/default.html" %}
+{% load static %}
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade5/home/">Grade 5</a>
+>
+<a href="/grade5/decimals/home/">Decimals</a>
+>
+Subtract
+{% endblock %}
+{% block content %}
+<form action="/grade5/decimals/subtract/">
+    <table>
+        <tr>
+            <td style="text-align: center; padding-top: 20px;">
+                <canvas id="fractionCanvas1" width="120" height="60"></canvas>
+                <script src="/static/GraphicScripts/DecimalsDrawer.js"></script>
+                <script>drawDecimal("fractionCanvas1", {{ decimal1 }}, 40)</script>
+            </td>
+            <td style="text-align: center;">
+                <p class="fontsize40">&nbsp; - &nbsp;</p>
+            </td>
+            <td style="text-align: center; padding-top: 20px">
+                <canvas id="fractionCanvas2" width="120" height="60"></canvas>
+                <script src="/static/GraphicScripts/DecimalsDrawer.js"></script>
+                <script>drawDecimal("fractionCanvas2", {{ decimal2 }}, 40)</script>
+            </td>
+        </tr>
+        <tr>
+        	<td class="fontsize40" style="text-align: center;" colspan="100%">
+        	= <input style="height:50px;font-size:40pt;" type="text" name="userinput" maxlength="7" size="5" autocomplete="off" value="{{ userinput }}">
+        	</td>
+        </tr>
+        <tr>
+            <td style="text-align: center; padding-top: 20px;" colspan="100%">
+                {% if button2 == "GetAnswer" %}
+                <input type="Submit" name="Submit" value="{{ button2 }}" class="fontsize40 button">
+                {% endif %}
+                <input type="Submit" name="Submit" value="{{ cmd }}" class="fontsize40 button">
+            </td>
+        </tr>
+        <tr>
+        	<td style="text-align: center;" colspan="100%">
+       			{% if flag == 'x' %}
+                <img src="{% static 'img/frown.png' %}" class="resultimg">
+                {% endif %}
+                {% if flag == 'v' %}
+                <img src="{% static 'img/smile.png' %}" class="resultimg">
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="state" name="state" value="{{ state }}">
+    <input type="hidden" id="decimal1" name="decimal1" value="{{ decimal1 }}">
+    <input type="hidden" id="decimal2" name="decimal2" value="{{ decimal2 }}">
+    <input type="hidden" id="decimalRange" name="decimalRange" value="{{ decimalRange }}">
+</form>
+
+{% endblock %}

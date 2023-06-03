@@ -17,6 +17,13 @@ def get_sec():
     now = datetime.now()
     return (now.second)
 
+def get_random(min, max):
+    """Create a single random number between min & max
+    """
+    msec = get_msec()
+    random.seed(msec)
+    return random.randint(min, max)
+
 
 def get_randoms(count, min, max):
     """Create a list of random numbers.
@@ -182,4 +189,39 @@ def divide_fractions(int1, numerator1, denominator1, int2, numerator2, denominat
     fraction[1] = numerator
     fraction[2] = denominator
     return fraction
+
+def get_decimal(intRange, decimalRange):
+    """ intRange: 1 for range (0, 9), 2 for range (0, 99)
+        decimalRange: 1 for range (0, 9), 2 for range (0, 99), 3 for range (0, 999)
+        return a list which has two pieces, int piece, and decimal piece.
+    """
+    devision = 1
+    for _ in range(0, intRange):
+        devision *= 10
+    intPiece = get_random(0, devision-1)
+    
+    devision = 1
+    for _ in range(0, decimalRange):
+        devision *= 10
+    decimalPiece = (get_random(0, devision-1)) / devision
+    decimal = [0, 0]
+    decimal[0] = intPiece
+    decimal[1] = decimalPiece
+    return decimal
+    
+def get_decimal2(decimalRange):
+    """ decimalRange: represent how many digits after the decimal point
+        1, means 1 digits; 2, means 2 digits, and so on;
+        return a decimal directly.
+    """
+    devision1 = 1
+    devision2 = 1
+    for _ in range(0, decimalRange):
+        devision1 *= 10
+        devision2 *= 10
+    devision2 *= 100
+    tmpInt = get_random(devision1+1, devision2-1)
+    if((tmpInt % 10) == 0):
+        tmpInt += 1
+    return (round((tmpInt/devision1), decimalRange))
 
