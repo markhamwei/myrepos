@@ -16,10 +16,12 @@ const PolyDrawer = (function() {
 			max_x = Math.max(max_x, points[i][0]);
 			max_y = Math.max(max_y, points[i][1]);
 		}
-		var cent_x = (min_x+max_x)/2, cent_y = (min_y+max_y)/2, scale = 0.85*Math.min(canvas.width/(max_x-min_x), canvas.height/(max_y-min_y));
-		return (point) => {
-			return [(point[0]-cent_x)*scale, (point[1]-cent_y)*scale];
-		};
+		var cent_x = (min_x+max_x)/2, cent_y = (min_y+max_y)/2, scale = 0.7*Math.min(canvas.width/(max_x-min_x), canvas.height/(max_y-min_y));
+		return ((x, y, sc, w, h) => {
+			return (point) => {
+				return [(point[0]-x)*sc+w/2, h/2-(point[1]-y)*sc];
+			};
+		})(cent_x, cent_y, scale, canvas.width, canvas.height);
 	}
 
 	/*
@@ -32,16 +34,23 @@ const PolyDrawer = (function() {
 	function drawLength(p1, p2, val, draw_ruler, func, context) {
 		p1 = func(p1);
 		p2 = func(p2);
-		let dx = p1[1]-p2[1], dy = p2[0]-p1[1];
+		let dx = p1[1]-p2[1], dy = p2[0]-p1[0];
 		let d = Math.sqrt(dx*dx+dy*dy);
 		dx*=45/d; dy*=45/d;
 		context.font='35px verdana';
 		context.fillText(val.toString(), (p1[0]+p2[0])/2+dx-6, (p1[1]+p2[1])/2+dy+3);
 		if(draw_ruler) {
-			context.setLineDash([10,10]);
 			context.beginPath();
+			context.setLineDash([10,10]);
 			context.moveTo(p1[0], p1[1]);
 			context.lineTo(p2[0], p2[1]);
+			context.stroke();
+			context.beginPath();
+			context.setLineDash([]);
+			context.moveTo(p1[0]+dx/5,p1[1]+dy/5);
+			context.lineTo(p1[0]-dx/5,p1[1]-dy/5);
+			context.moveTo(p2[0]+dx/5,p2[1]+dy/5);
+			context.lineTo(p2[0]-dx/5,p2[1]-dy/5);
 			context.stroke();
 		}
 	}
@@ -53,11 +62,18 @@ const PolyDrawer = (function() {
 	*/
 	function drawAngle(p1, p2, p3, val, func, context) {
 		p1 = func(p1); p2 = func(p2); p3 = func(p3);
-		d = [(p1[0]+p3[0])/2,(p1[1]+p3[1])/2];
+		d = [(p1[0]+p3[0])/2-p2[0],(p1[1]+p3[1])/2-p2[1]];
 		ad = Math.sqrt(d[0]**2 + d[1]**2);
-		p2p1p3 = [p2[0]+d[0]*40/ad, p2[1]+d[1]*40/ad];
+		p2p1p3 = [p2[0]+d[0]*80/ad, p2[1]+d[1]*80/ad];
 		context.font='35px verdana';
-		context.fillText(val.toString(), p2p1p3[0]-6, p2p1p3[1]+3);
+		val = Math.round(val/Math.PI*180);
+		context.fillText(val.toString(), p2p1p3[0]-16, p2p1p3[1]+16);
+		context.beginPath();
+		var ang1 = Math.acos((p3[0]-p2[0])/Math.sqrt((p3[0]-p2[0])**2+(p3[1]-p2[1])**2));
+		var ang2 = Math.acos((p1[0]-p2[0])/Math.sqrt((p1[0]-p2[0])**2+(p1[1]-p2[1])**2));
+		console.log([ang1,ang2]);
+		context.arc(p2[0],p2[1],40,-Math.min(ang1,ang2),-Math.max(ang1,ang2), true);
+		context.stroke();
 	}
 
 	/*
@@ -65,11 +81,13 @@ const PolyDrawer = (function() {
 	it takes in an array of points along with a calibrator function and draws the calibrated points into the context
 	*/
 	function tracePoints(points, func, context) {
-		context.setLineDash([]);
 		context.beginPath();
-		context.moveTo(func(points[0][0]), func(points[0][1]));
+		context.setLineDash([]);
+		p = func(points[0]);
+		context.moveTo(p[0], p[1]);
 		for(var i = 1; i < points.length; i++) {
-			context.moveTo(func(points[i][0]), func(points[i][1]));
+			p = func(points[i]);
+			context.lineTo(p[0], p[1]);
 		}
 		context.closePath();
 		context.stroke();
@@ -94,8 +112,9 @@ const PolyDrawer = (function() {
 			var canvas = document.getElementById(canvas_id);
 			var context = canvas.getContext('2d');
 			var points = [[0,0],[base,0],[top+topoffset,height],[topoffset,height]];
-			var heightruler = [[Math.min(-10, topoffset-10), 0], [Math.min(-10, topoffset-10), height]];
+			var heightruler = [[Math.min(0, topoffset), 0], [Math.min(0, topoffset), height]];
 			var func = calibrate(points, canvas);
+
 			tracePoints(points, func, context);
 			if(display_side_lengths) {
 				drawLength(heightruler[1], heightruler[0], height, true, func, context);
@@ -112,6 +131,7 @@ const PolyDrawer = (function() {
 			var context = canvas.getContext('2d');
 			var points = [[0, 0], [base, 0], [base, height], [0, height]];
 			var func = calibrate(points, canvas);
+			context.clearRect(0, 0, canvas.width, canvas.height);
 			tracePoints(points, func, context);
 			if(display_side_lengths) {
 				drawLength(points[0], points[1], base, false, func, context);
@@ -125,9 +145,10 @@ const PolyDrawer = (function() {
 		drawTriangle_bh: function(base, height, topoffset, display_side_lengths, canvas_id) {
 			var canvas = document.getElementById(canvas_id);
 			var context = canvas.getContext('2d');
-			var points = [[0, 0], [base, 0], [base+topoffset, height]];
-			var heightruler = [[Math.min(-10, topoffset-10), 0], [Math.min(-10, topoffset-10), height]];
+			var points = [[0, 0], [base, 0], [topoffset, height]];
+			var heightruler = [[Math.min(0, topoffset), 0], [Math.min(0, topoffset), height]];
 			var func = calibrate(points, canvas);
+			context.clearRect(0, 0, canvas.width, canvas.height);
 			tracePoints(points, func, context);
 			if(display_side_lengths) {
 				drawLength(points[0], points[1], base, false, func, context);
@@ -142,9 +163,12 @@ const PolyDrawer = (function() {
 		drawTriangle_saa: function(base, angle_1, angle_2, display_side_lengths, display_angles, canvas_id) {
 			var canvas = document.getElementById(canvas_id);
 			var context = canvas.getContext('2d');
-			var side = base/Math.sin(2*Math.PI-angle_1-angle_2)*Math.sin(angle_2);
+			var angle_1 = Math.PI/180*angle_1;
+			var angle_2 = Math.PI/180*angle_2;
+			var side = base/Math.sin(Math.PI-angle_1-angle_2)*Math.sin(angle_2);
 			var points = [[0, 0], [base, 0], [Math.cos(angle_1)*side,Math.sin(angle_1)*side]];
 			var func = calibrate(points, canvas);
+			context.clearRect(0, 0, canvas.width, canvas.height);
 			tracePoints(points, func, context);
 			if(display_side_lengths) {
 				drawLength(points[0], points[1], base, false, func, context);
@@ -164,6 +188,7 @@ const PolyDrawer = (function() {
 			var context = canvas.getContext('2d');
 			var points = [[0,0],[length_2,0],[Math.cos(angle)*length_1,Math.sin(angle)*length_1]];
 			var func = calibrate(points,canvas);
+			context.clearRect(0, 0, canvas.width, canvas.height);
 			tracePoints(poitns,func,context);
 			if(display_side_lengths) {
 				drawLength(points[0],points[1],length_2,false,func,context);
