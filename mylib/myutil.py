@@ -3,6 +3,8 @@ import random
 from django.http import HttpResponse
 import wolframalpha
 import math
+import base64
+from itertools import cycle
 
 IMPROPER = 0
 PROPER = 1
@@ -18,7 +20,7 @@ def get_sec():
     return (now.second)
 
 def get_random(min, max):
-    """Create a single random number between min & max
+    """Create a single random number between min & max (inclusive)
     """
     msec = get_msec()
     random.seed(msec)
@@ -26,7 +28,7 @@ def get_random(min, max):
 
 
 def get_randoms(count, min, max):
-    """Create a list of random numbers.
+    """Create a list of random numbers between min & max (inclusive)
     """
     msec = get_msec()
     random.seed(msec)
@@ -36,7 +38,7 @@ def get_randoms(count, min, max):
     return randoms
 
 def get_randoms_unique(count, min, max):
-    """create a list of unique random numbers
+    """create a list of unique random numbers between min & max (inclusive)
     """
     return random.sample(range(min, max+1), count)
 
@@ -225,3 +227,12 @@ def get_decimal2(decimalRange):
         tmpInt += 1
     return (round((tmpInt/devision1), decimalRange))
 
+def scramble(s):
+    """ scramble: obfuscates the characters in a string in a way that is reversible. Used to hide answers. Guaranteed to work on ascii characters: no guarantee for anything else
+    """
+    return base64.b64encode(bytes(a^b for a, b in zip(s.encode(), cycle(b'scramble')))).decode()
+
+def unscramble(s):
+    """ unscramble: reverses the operation of scramble
+    """
+    return (bytes(a^b for a, b in zip(base64.b64decode(s.encode()), cycle(b'scramble')))).decode()
