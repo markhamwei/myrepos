@@ -129,7 +129,7 @@ const PolyDrawer = (function() {
 			if(display_side_lengths) {
 				drawLength(heightruler[1], heightruler[0], height, true, func, fontsize, context);
 				drawLength(points[0], points[1], base, false, func, fontsize, context);
-				if(base != top) drawLength(points[2], points[3], top, false, func, fontsize, context);
+				drawLength(points[2], points[3], top, false, func, fontsize, context);
 			}
 		},
 		/*
