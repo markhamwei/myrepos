@@ -28,17 +28,17 @@ const PolyDrawer = (function() {
 	Utility function to display the side length onto the canvas
 	it takes in two points: start and ending points of the line,
 	a length value to draw, whether or not to draw dotted lines as a ruler,
-	a calibrator function
+	a calibrator function, a target font size
 	and a target context object
 	*/
-	function drawLength(p1, p2, val, draw_ruler, func, context) {
+	function drawLength(p1, p2, val, draw_ruler, func, fontsize, context) {
 		p1 = func(p1);
 		p2 = func(p2);
 		let dx = p1[1]-p2[1], dy = p2[0]-p1[0];
 		let d = Math.sqrt(dx*dx+dy*dy);
-		dx*=45/d; dy*=45/d;
-		context.font='35px verdana';
-		context.fillText(val.toString(), (p1[0]+p2[0])/2+dx-6, (p1[1]+p2[1])/2+dy+3);
+		dx*=1.25*fontsize/d; dy*=1.25*fontsize/d;
+		context.font=String(fontsize)+'px verdana';
+		context.fillText(val.toString(), (p1[0]+p2[0])/2+dx-0.46*fontsize, (p1[1]+p2[1])/2+dy+0.37*fontsize);
 		if(draw_ruler) {
 			context.beginPath();
 			context.setLineDash([10,10]);
@@ -58,21 +58,21 @@ const PolyDrawer = (function() {
 	/*
 	Utility function to display the angle onto the canvas
 	it takes in three points creating an angle between two lines,
-	an angle val to drawm a calibrator function, and a target context object
+	an angle val to drawm a calibrator function, a target font size,
+	and a target context object
 	*/
-	function drawAngle(p1, p2, p3, val, func, context) {
+	function drawAngle(p1, p2, p3, val, func, fontsize, context) {
 		p1 = func(p1); p2 = func(p2); p3 = func(p3);
 		d = [(p1[0]+p3[0])/2-p2[0],(p1[1]+p3[1])/2-p2[1]];
 		ad = Math.sqrt(d[0]**2 + d[1]**2);
-		p2p1p3 = [p2[0]+d[0]*80/ad, p2[1]+d[1]*80/ad];
-		context.font='35px verdana';
+		p2p1p3 = [p2[0]+d[0]*2.25*fontsize/ad, p2[1]+d[1]*2.25*fontsize/ad];
+		context.font=String(fontsize)+'px verdana';
 		val = Math.round(val/Math.PI*180);
-		context.fillText(val.toString(), p2p1p3[0]-16, p2p1p3[1]+16);
+		context.fillText(val.toString(), p2p1p3[0]-0.46*fontsize, p2p1p3[1]+0.37*fontsize);
 		context.beginPath();
 		var ang1 = Math.acos((p3[0]-p2[0])/Math.sqrt((p3[0]-p2[0])**2+(p3[1]-p2[1])**2));
 		var ang2 = Math.acos((p1[0]-p2[0])/Math.sqrt((p1[0]-p2[0])**2+(p1[1]-p2[1])**2));
-		console.log([ang1,ang2]);
-		context.arc(p2[0],p2[1],40,-Math.min(ang1,ang2),-Math.max(ang1,ang2), true);
+		context.arc(p2[0],p2[1],1.25*fontsize,-Math.min(ang1,ang2),-Math.max(ang1,ang2), true);
 		context.stroke();
 	}
 
@@ -98,35 +98,46 @@ const PolyDrawer = (function() {
 		/*
 		drawPolygon_l: given an array of side lengths, draws a matching polygon onto the given canvas
 		if display_side_lengths is true, then side lengths are drawn as well
+		fontsize is the size of the display measurements, if any
 		*/
-		drawPolygon_l: function(length_array, display_side_lengths, canvas_id) {
-			// TODO
+		drawPolygon_l: function(length_array, display_side_lengths, fontsize, canvas_id) {
+			var canvas = document.getElementById(canvas_id);
+			var context = canvas.getContext('2d');
+			var points;
+			var func = calibrate(points, func, context);
+			tracePoints(points, func, context);
+			if(display_side_lengths) {
+				for(var i = 0; i < length_array; i++) {
+					drawLength(points[i], points[i+1], length_array[i], false, func, fontsize, context);
+				}
+			}
 		},
 		/*
 		drawTrapezoid: given a base, height, top, topoffset, whether or not to display side lengths, and a canvas ID, draws a matching
 		trapezoid onto the corresponding canvas.
 		note: topoffset is the horizontal displacement from the leftmost point of the base to the leftmost point of the top
 		if display_side_lengths is true, then the base, height, and top measurements are drawn
+		fontsize is the size of the display measurements, if any
 		*/
-		drawTrapezoid: function(base, height, top, topoffset, display_side_lengths, canvas_id) {
+		drawTrapezoid: function(base, height, top, topoffset, display_side_lengths, fontsize, canvas_id) {
 			var canvas = document.getElementById(canvas_id);
 			var context = canvas.getContext('2d');
 			var points = [[0,0],[base,0],[top+topoffset,height],[topoffset,height]];
 			var heightruler = [[Math.min(0, topoffset), 0], [Math.min(0, topoffset), height]];
 			var func = calibrate(points, canvas);
-
 			tracePoints(points, func, context);
 			if(display_side_lengths) {
-				drawLength(heightruler[1], heightruler[0], height, true, func, context);
-				drawLength(points[0], points[1], base, false, func, context);
-				if(base != top) drawLength(points[2], points[3], top, false, func, context);
+				drawLength(heightruler[1], heightruler[0], height, true, func, fontsize, context);
+				drawLength(points[0], points[1], base, false, func, fontsize, context);
+				if(base != top) drawLength(points[2], points[3], top, false, func, fontsize, context);
 			}
 		},
 		/*
 		drawRectangle: given a base and a height, draws a matching rectangle onto the corresponding canvas.
 		if display_side_lengths is true, then the base and height measurements are drawn
+		fontsize is the size of the display measurements, if any
 		*/
-		drawRectangle: function(base, height, display_side_lengths, canvas_id) {
+		drawRectangle: function(base, height, display_side_lengths, fontsize, canvas_id) {
 			var canvas = document.getElementById(canvas_id);
 			var context = canvas.getContext('2d');
 			var points = [[0, 0], [base, 0], [base, height], [0, height]];
@@ -134,15 +145,16 @@ const PolyDrawer = (function() {
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			tracePoints(points, func, context);
 			if(display_side_lengths) {
-				drawLength(points[0], points[1], base, false, func, context);
-				drawLength(points[3], points[0], height, false, func, context);
+				drawLength(points[0], points[1], base, false, func, fontsize, context);
+				drawLength(points[3], points[0], height, false, func, fontsize, context);
 			}
 		},
 		/*
 		drawTriangle_bh: given a base, height, and topoffset, displays the corresponding triangle onto the canvas
 		if display_side_lengths is true, then the base and height measurements are drawn
+		fontsize is the size of the display measurements, if any
 		*/
-		drawTriangle_bh: function(base, height, topoffset, display_side_lengths, canvas_id) {
+		drawTriangle_bh: function(base, height, topoffset, display_side_lengths, fontsize, canvas_id) {
 			var canvas = document.getElementById(canvas_id);
 			var context = canvas.getContext('2d');
 			var points = [[0, 0], [base, 0], [topoffset, height]];
@@ -151,16 +163,17 @@ const PolyDrawer = (function() {
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			tracePoints(points, func, context);
 			if(display_side_lengths) {
-				drawLength(points[0], points[1], base, false, func, context);
-				drawLength(heightruler[1], heightruler[0], height, true, func, context);
+				drawLength(points[0], points[1], base, false, func, fontsize, context);
+				drawLength(heightruler[1], heightruler[0], height, true, func, fontsize, context);
 			}
 		},
 		/*
 		drawTriangle_saa: given a base and two angles adjacent to the base, draws the corresponding side-angle-angle triangle onto the canvas
 		if display_side_lengths is true, then the base measurement is drawn
 		if display_angles is true, then the two angles adjacent to the base are shown
+		fontsize is the size of the display measurements, if any
 		*/
-		drawTriangle_saa: function(base, angle_1, angle_2, display_side_lengths, display_angles, canvas_id) {
+		drawTriangle_saa: function(base, angle_1, angle_2, display_side_lengths, display_angles, fontsize, canvas_id) {
 			var canvas = document.getElementById(canvas_id);
 			var context = canvas.getContext('2d');
 			var angle_1 = Math.PI/180*angle_1;
@@ -171,19 +184,20 @@ const PolyDrawer = (function() {
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			tracePoints(points, func, context);
 			if(display_side_lengths) {
-				drawLength(points[0], points[1], base, false, func, context);
+				drawLength(points[0], points[1], base, false, func, fontsize, context);
 			}
 			if(display_angles) {
-				drawAngle(points[2],points[0],points[1],angle_1,func,context);
-				drawAngle(points[2],points[1],points[0],angle_2,func,context);
+				drawAngle(points[2],points[0],points[1],angle_1,func,fontsize,context);
+				drawAngle(points[2],points[1],points[0],angle_2,func,fontsize,context);
 			}
 		},
 		/*
 		drawTriangle_sas: given a length, an angle, and another length, draws the corresponding length-angle-length triangle onto the canvas
 		if display_side_lengths is true, then the length measurements are drawn
 		if display_angles is true, then the given angle is drawn onto the appropriate location on the triangle
+		fontsize is the size of the display measurements, if any
 		*/
-		drawTriangle_sas: function(length_1, angle, length_2, display_side_lengths, display_angles, canvas_id) {
+		drawTriangle_sas: function(length_1, angle, length_2, display_side_lengths, display_angles, fontsize, canvas_id) {
 			var canvas = document.getElementById(canvas_id);
 			var context = canvas.getContext('2d');
 			var points = [[0,0],[length_2,0],[Math.cos(angle)*length_1,Math.sin(angle)*length_1]];
@@ -191,11 +205,11 @@ const PolyDrawer = (function() {
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			tracePoints(poitns,func,context);
 			if(display_side_lengths) {
-				drawLength(points[0],points[1],length_2,false,func,context);
-				drawLength(points[2],points[0],length_1,false,func,context);
+				drawLength(points[0],points[1],length_2,false,func,fontsize,context);
+				drawLength(points[2],points[0],length_1,false,func,fontsize,context);
 			}
 			if(display_angles) {
-				drawAngle(points[2],points[0],points[1],angle, func, context);
+				drawAngle(points[2],points[0],points[1],angle, func, fontsize, context);
 			}
 		}
 	};
