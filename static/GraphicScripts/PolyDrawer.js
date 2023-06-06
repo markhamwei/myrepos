@@ -103,11 +103,37 @@ const PolyDrawer = (function() {
 		drawPolygon_l: function(length_array, display_side_lengths, fontsize, canvas_id) {
 			var canvas = document.getElementById(canvas_id);
 			var context = canvas.getContext('2d');
+			var total = 0, longestidx = 0;
+			for(var i = 1; i < length_array.length; i++) {
+				total += length_array[i];
+				if(length_array[i] > length_array[longestidx])
+					longestidx = i;
+			}
+			var newarr = [];
+			for(var i = longestidx+1; i < length_array.length; i++) newarr.push(length_array[i]);
+			for(var i = 0; i <= longestidx; i++) newarr.push(length_array[i]);
+			length_array = newarr;
+			var h = total, l = total/2/Math.PI;
 			var points;
-			var func = calibrate(points, func, context);
+			for(var x = 0; x < 30; x++) {
+				var m = (l+h)/2;
+				points = [[0,0]]
+				var totang = 0;
+				for(var i = 0; i+1 < length_array.length; i++) {
+					totang += Math.acos(1-length_array[i]*length_array[i]/2/m/m);
+					points.push([Math.cos(totang)*m,Math.sin(totang)*m]);
+				}
+				if(totang > 2*Math.PI || Math.sqrt(points[points.length-1][0]**2+points[points.length-1][1]**2) < length_array[length_array.length-1])
+					l = m;
+				else
+					h = m;
+				points.push(points[0]);
+			}
+			var func = calibrate(points, canvas);
+			context.clearRect(0, 0, canvas.width, canvas.height);
 			tracePoints(points, func, context);
 			if(display_side_lengths) {
-				for(var i = 0; i < length_array; i++) {
+				for(var i = 0; i < length_array.length; i++) {
 					drawLength(points[i], points[i+1], length_array[i], false, func, fontsize, context);
 				}
 			}
@@ -125,6 +151,7 @@ const PolyDrawer = (function() {
 			var points = [[0,0],[base,0],[top+topoffset,height],[topoffset,height]];
 			var heightruler = [[Math.min(0, topoffset), 0], [Math.min(0, topoffset), height]];
 			var func = calibrate(points, canvas);
+			context.clearRect(0, 0, canvas.width, canvas.height);
 			tracePoints(points, func, context);
 			if(display_side_lengths) {
 				drawLength(heightruler[1], heightruler[0], height, true, func, fontsize, context);
