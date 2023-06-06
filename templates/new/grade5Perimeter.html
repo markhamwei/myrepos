@@ -10,35 +10,54 @@
 Perimeter
 {% endblock %}
 {% block content %}
-<canvas id="polygonCanvas"></canvas><br>
-<div class="flexvertical">
-	<div class="flexhorizontal">
-		<label for="perimeter" class="fontsize40 label">Perimeter:</label>
-		<img class="hiddenimg resultimg" id="resultimgleft">
-	</div>
-	<input type="text" name="perimeter" class="fontsize40 textfield" style="text-align:center" id="inputbox">
-	<div style="margin:4px">
+<canvas id="polygonCanvas" width="500" height="500"></canvas><br>
+<form method="post">
+	{% csrf_token %}
+	<div class="flexvertical" style="width: 500px; height: 500px">
+		{% if state == 'question' %}
+		<label for="response" class="fontsize40 label">Perimeter:</label>
+		<div style="height: 5px"></div>
+		<input type="text" class="fontsize40 textfield" name="response">
+		<div style="height: 5px"></div>
+		<input type="submit" class="fontsize40 button" name="submit" value="Submit!">
+		{% endif %}
+		{% if state == 'correct' %}
 		<div class="flexhorizontal">
-			<input type="button" onclick="DrawingScope.checkPoly()" value="Submit" id="submitbutton"
-				class="fontsize40 button">
+			<div class="fontsize40 label">Correct!</div>
 			<div style="width: 5px"></div>
-			<div class="flexvertical">
-				<input type="button" onclick="DrawingScope.showSolution()" value="Get Answer" class="fontsize40 button" id="getanswerbutton">
-				<div style="height: 5px"></div>
-				<input type="button" onclick="DrawingScope.generatePoly('polygonCanvas')" value="Next Question"
-					class="fontsize40 button" id="nextbutton" disabled>
-			</div>
+			<img src="/static/img/smile.png" style="width: 40px; height: 40px">
 		</div>
+		<div style="height: 5px"></div>
+		<input type="submit" class="fontsize40 button" name="submit" value="Next Question!">
+		{% endif %}
+		{% if state == 'incorrect' %}
+		<div class="flexhorizontal">
+			<div class="fontsize40 label">Incorrect</div>
+			<div style="width: 5px"></div>
+			<img src="/static/img/frown.png" style="width: 40px; height: 40px">
+		</div>
+		<div style="height: 5px"></div>
+		<label for="response" class="fontsize40 label">Area:</label>
+		<div style="height: 5px"></div>
+		<input type="text" class="fontsize40 textfield" name="response" value="{{ response }}">
+		<div style="height: 5px"></div>
+		<div class="flexhorizontal">
+			<input type="submit" class="fontsize40 button" name="submit" value="Submit!">
+			<input type="submit" class="fontsize40 button" name="submit" value="Get Answer">
+		</div>
+		{% endif %}
+		{% if state == 'get answer' %}
+		<label for="response" class="fontsize40 label">Area: {{ answer }}</label>
+		<div style="height: 5px"></div>
+		<input type="submit" class="fontsize40 button" name="submit" value="Next Question!">
+		{% endif %}
 	</div>
+	<input type="hidden" name="question" value="{{ question }}">
+	<input type="hidden" name="answer" value="{{ answer }}">
 
-</div>
-<script src="/static/GraphicScripts/PerimeterDrawer.js" onload="DrawingScope.generatePoly('polygonCanvas')"></script>
+	<script src="/static/GraphicScripts/PolyDrawer.js" onload="{{ question }}"></script>
 
-<script>
-	document.getElementById("inputbox").addEventListener("keyup", function (event) {
-		if (event.key === 'Enter') {
-			document.getElementById("submitbutton").click();
-		}
-	})
-</script>
+</form>
+
+
 {% endblock %}

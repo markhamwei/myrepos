@@ -13,7 +13,7 @@ Area
 <canvas id="polygonCanvas" width="500" height="500"></canvas><br>
 <form method="post">
 	{% csrf_token %}
-	<div class="flexvertical">
+	<div class="flexvertical" style="width: 500px; height: 500px">
 		{% if state == 'question' %}
 		<label for="response" class="fontsize40 label">Area:</label>
 		<div style="height: 5px"></div>
