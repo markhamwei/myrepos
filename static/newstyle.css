@@ -135,3 +135,14 @@ body {
 .main .textfield:focus {
     outline: #ff9841;
 }
+
+.radio-frame {
+  border: 2px solid black;
+  padding: 10px;
+  display: inline-block;
+}
+
+.radio-frame label {
+  display: block;
+  margin-bottom: 8px; /* Add margin-bottom for spacing */
+}
