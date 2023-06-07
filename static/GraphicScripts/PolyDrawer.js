@@ -68,7 +68,8 @@ const PolyDrawer = (function() {
 		p2p1p3 = [p2[0]+d[0]*2.25*fontsize/ad, p2[1]+d[1]*2.25*fontsize/ad];
 		context.font=String(fontsize)+'px verdana';
 		val = Math.round(val/Math.PI*180);
-		context.fillText(val.toString(), p2p1p3[0]-0.46*fontsize, p2p1p3[1]+0.37*fontsize);
+		context.fillStyle = "red";
+		context.fillText(val.toString()+"\xB0", p2p1p3[0]-0.46*fontsize, p2p1p3[1]+0.37*fontsize);
 		context.beginPath();
 		var ang1 = Math.acos((p3[0]-p2[0])/Math.sqrt((p3[0]-p2[0])**2+(p3[1]-p2[1])**2));
 		var ang2 = Math.acos((p1[0]-p2[0])/Math.sqrt((p1[0]-p2[0])**2+(p1[1]-p2[1])**2));

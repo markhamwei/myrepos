@@ -1,0 +1,73 @@
+{% extends "base/default.html" %}
+{% load static %}
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade5/home/">Grade 5</a>
+>
+<a href="/grade5/geometry/home/">Geometry</a>
+>
+Identify Angles
+{% endblock %}
+{% block content %}
+<form action="/grade5/geometry/identifytriangles/">
+    <table>
+        <tr>
+            <td style="text-align: center;">
+                <canvas id="triangleCanvas" width="400" height="400"></canvas>
+                <script src="/static/GraphicScripts/PolyDrawer.js"></script>
+                <script>PolyDrawer.drawTriangle_saa(100, {{angle1}}, {{angle2}}, false, true, 30, "triangleCanvas")</script>
+            </td>
+            <td style="text-align: left;" class="fontsize30">
+			  <div class="radio-frame">
+			    By Angles:
+			    <label>
+			      <input type="radio" name="group1" value="acute" {{acute}}> Acute Triangle
+			    </label>
+			    <label>
+			      <input type="radio" name="group1" value="obtuse" {{obtuse}}> Obtuse Triangle
+			    </label>
+			    <label>
+			      <input type="radio" name="group1" value="right" {{right}}> Right Triangle
+			    </label>
+			  </div>
+			  <div class="radio-frame">
+			    By Sides:
+			    <label>
+			      <input type="radio" name="group2" value="equilateral" {{equilateral}}> Equilateral Triangle
+			    </label>
+			    <label>
+			      <input type="radio" name="group2" value="isosceles" {{isosceles}}> Isosceles Triangle
+			    </label>
+			    <label>
+			      <input type="radio" name="group2" value="scalene" {{scalene}}> Scalene Triangle
+			    </label>
+			  </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center; padding-bottom: 10px;" colspan="2">
+                {% if button2 == "GetAnswer" %}
+                <input type="Submit" name="Submit" value="{{ button2 }}" class="fontsize40 button">
+                {% endif %}
+                <input type="Submit" name="Submit" value="{{ cmd }}" class="fontsize40 button">
+            </td>
+        </tr>
+        <tr>
+        	<td style="text-align: center;" colspan="2">
+       			{% if flag == 'x' %}
+                <img src="{% static 'img/frown.png' %}" class="resultimg">
+                {% endif %}
+                {% if flag == 'v' %}
+                <img src="{% static 'img/smile.png' %}" class="resultimg">
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="state" name="state" value="{{ state }}">
+    <input type="hidden" id="angle1" name="angle1" value="{{ angle1 }}">
+    <input type="hidden" id="angle2" name="angle2" value="{{ angle2 }}">
+    <input type="hidden" id="type" name="saveType" value="{{ saveType }}">
+</form>
+
+{% endblock %}
