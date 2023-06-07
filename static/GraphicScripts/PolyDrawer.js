@@ -113,17 +113,18 @@ const PolyDrawer = (function() {
 			for(var i = longestidx+1; i < length_array.length; i++) newarr.push(length_array[i]);
 			for(var i = 0; i <= longestidx; i++) newarr.push(length_array[i]);
 			length_array = newarr;
-			var h = total, l = total/2/Math.PI;
+			var h = total, l = Math.max(length_array[length_array.length-1]/2, total/2/Math.PI);
 			var points;
 			for(var x = 0; x < 30; x++) {
 				var m = (l+h)/2;
-				points = [[0,0]]
+				points = [[m,0]]
 				var totang = 0;
 				for(var i = 0; i+1 < length_array.length; i++) {
 					totang += Math.acos(1-length_array[i]*length_array[i]/2/m/m);
 					points.push([Math.cos(totang)*m,Math.sin(totang)*m]);
 				}
-				if(totang > 2*Math.PI || Math.sqrt(points[points.length-1][0]**2+points[points.length-1][1]**2) < length_array[length_array.length-1])
+				console.log([h, l, m, totang, (Math.cos(totang)*m-m)**2+(Math.sin(totang)*m)**2, length_array[length_array.length-1]**2]);
+				if(totang > 2*Math.PI ||(Math.cos(totang)*m-m)**2+(Math.sin(totang)*m)**2 < length_array[length_array.length-1]**2)
 					l = m;
 				else
 					h = m;
