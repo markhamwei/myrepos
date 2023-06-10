@@ -162,6 +162,31 @@ const PolyDrawer = (function() {
 			}
 		},
 		/*
+		drawParallelogram: two sides by {base, side2}, and the angle degree between the two sides, 
+		whether or not to display side lengths, and a canvas ID, draws a matching parallelogram onto the corresponding canvas.
+		fontsize is the size of the display measurements;
+		trapezoidOffset used to control the shape, ==0 for a parallelogram, >0 for a trapezoid
+		*/
+		drawParallelogram: function(base, side2, angleDegree, display_side_lengths, fontsize, canvas_id, trapezoidOffset) {
+			var canvas = document.getElementById(canvas_id);
+			var context = canvas.getContext('2d');
+			var height = side2*Math.sin(angleDegree*Math.PI/180)
+			var topoffset = side2*Math.cos(angleDegree*Math.PI/180)
+			var points = [[0,0],[base,0],[base+topoffset-trapezoidOffset,height],[topoffset,height]];
+			var heightruler = [[Math.min(0, topoffset), 0], [Math.min(0, topoffset), height]];
+			var func = calibrate(points, canvas);
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			tracePoints(points, func, context);
+			if(display_side_lengths) {
+				drawLength(points[0], points[3], side2, false, func, fontsize, context);
+				if(trapezoidOffset == 0){
+					drawLength(points[1], points[2], side2, false, func, fontsize, context);
+				}
+				drawLength(points[0], points[1], base, false, func, fontsize, context);
+				drawLength(points[2], points[3], base-trapezoidOffset, false, func, fontsize, context);
+			}
+		},
+		/*
 		drawRectangle: given a base and a height, draws a matching rectangle onto the corresponding canvas.
 		if display_side_lengths is true, then the base and height measurements are drawn
 		fontsize is the size of the display measurements, if any

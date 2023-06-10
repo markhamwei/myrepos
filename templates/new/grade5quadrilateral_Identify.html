@@ -1,0 +1,56 @@
+{% extends "base/default.html" %}
+{% load static %}
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade5/home/">Grade 5</a>
+>
+<a href="/grade5/geometry/home/">Geometry</a>
+>
+Identify Quadrilateral
+{% endblock %}
+{% block content %}
+<form action="/grade5/geometry/identifyquadrilateral/">
+    <table>
+        <tr>
+            <td style="text-align: center; padding-right: 40px;">
+                <canvas id="myCanvas" width="350" height="350"></canvas>
+                <script src="/static/GraphicScripts/PolyDrawer.js"></script>
+                <script>PolyDrawer.drawParallelogram({{side1}}, {{side2}}, {{angleDegree}}, true, 25, "myCanvas", {{trapezoidOffset}})</script>
+            </td>
+            <td style="text-align: left;" class="fontsize30">
+                <input type="radio" id="square" name="polyType" value="0" {{ square }}><label for="square">square</label><br><br>
+                <input type="radio" id="rectangle" name="polyType" value="1" {{ rectangle }}><label for="rectangle">rectangle</label><br><br>
+                <input type="radio" id="parallelogram" name="polyType" value="2" {{ parallelogram }}><label for="parallelogram">parallelogram</label><br><br>
+                <input type="radio" id="rhombus" name="polyType" value="3" {{ rhombus }}><label for="rhombus">rhombus</label><br><br>
+                <input type="radio" id="trapezoid" name="polyType" value="4" {{ trapezoid }}><label for="trapezoid">trapezoid</label>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center; padding-bottom: 10px;" colspan="2">
+                {% if button2 == "GetAnswer" %}
+                <input type="Submit" name="Submit" value="{{ button2 }}" class="fontsize40 button">
+                {% endif %}
+                <input type="Submit" name="Submit" value="{{ cmd }}" class="fontsize40 button">
+            </td>
+        </tr>
+        <tr>
+        	<td style="text-align: center;" colspan="2">
+       			{% if flag == 'x' %}
+                <img src="{% static 'img/frown.png' %}" class="resultimg">
+                {% endif %}
+                {% if flag == 'v' %}
+                <img src="{% static 'img/smile.png' %}" class="resultimg">
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="state" name="state" value="{{ state }}">
+    <input type="hidden" id="side1" name="side1" value="{{ side1 }}">
+    <input type="hidden" id="side2" name="side2" value="{{ side2 }}">
+    <input type="hidden" id="trapezoidOffset" name="trapezoidOffset" value="{{ trapezoidOffset }}">
+    <input type="hidden" id="angleDegree" name="angleDegree" value="{{ angleDegree }}">
+    <input type="hidden" id="type" name="saveType" value="{{ saveType }}">
+</form>
+
+{% endblock %}
