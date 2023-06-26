@@ -1,0 +1,65 @@
+{% extends "base/default.html" %}
+{% load static %}
+{% block customstyle %}
+<style>
+    table {
+        /* border: 1px solid; */
+        width: 100%;
+    }
+
+    th,
+    td {
+        padding: 3px;
+        font-size: 40px;
+    }
+</style>
+{% endblock %}
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade5/home/">Grade 5</a>
+>
+<a href="/grade5/equations/home/">Equations</a>
+>
+Calculate
+{% endblock %}
+{% block content %}
+<form action="/grade5/equations/calculate/">
+
+    <table>
+        <tr>
+            <td class="fontsize40" style="text-align: right;" colspan="2">
+            {{ equation | safe }}
+            </td>
+        </tr>
+        <tr>
+            <td class="fontsize40" style="text-align: right;">
+                X = 
+            </td>
+            <td style="text-align: right;">
+                <input type="text" id="answer" name="answer" value="{{ answer }}" autocomplete="off" size="3" class="fontsize40 textfield"
+                    style="text-align: right;">
+                {% if flag == 'x' %}
+                <img src="{% static 'img/frown.png' %}" class="resultimg">
+                {% endif %}
+                {% if flag == 'v' %}
+                <img src="{% static 'img/smile.png' %}" class="resultimg">
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right;" colspan="2">
+                {% if button2 == "GetAnswer" %}
+                <input type="Submit" name="Submit" value="{{ button2 }}" class="fontsize40 button">
+                {% endif %}
+                <input type="Submit" name="Submit" value="{{ cmd }}" class="fontsize40 button">
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="state" name="state" value="{{ state }}">
+    <input type="hidden" id="num1" name="num1" value="{{ number1 }}">
+    <input type="hidden" id="num2" name="num2" value="{{ number2 }}">
+    <input type="hidden" id="num3" name="num3" value="{{ number3 }}">
+    <input type="hidden" id="operate" name="operate" value="{{ operate }}">
+</form>
+{% endblock %}

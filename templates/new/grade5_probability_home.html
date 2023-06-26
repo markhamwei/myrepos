@@ -1,0 +1,38 @@
+{% extends "base/default.html" %}
+{% load static %}
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade5/home/">Grade 5</a>
+>
+Probability
+{% endblock %}
+{% block content %}
+
+<div class="subdirgrid">
+    <a href="/grade5/probability/spinner/">
+        <div class="subdirlink" style="height: 80px">
+            <div style="height: 10px"></div>
+            Spinner
+        </div>
+    </a>
+    <a href="/grade5/factoring/prime/">
+        <div class="subdirlink" style="height: 80px">
+            <div style="height: 10px"></div>
+            List Prime Factors
+        </div>
+    </a>
+    <a href="/grade5/factoring/gcf/">
+        <div class="subdirlink" style="height: 80px">
+            <div style="height: 10px"></div>
+            Greatest Common Factor
+        </div>
+    </a>
+    <a href="/grade5/factoring/lcm/">
+        <div class="subdirlink" style="height: 80px">
+            <div style="height: 10px"></div>
+            Least Common multiple
+        </div>
+    </a>
+</div>
+{% endblock %}

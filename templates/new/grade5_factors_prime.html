@@ -1,0 +1,59 @@
+{% extends "base/default.html" %}
+{% load static %}
+{% block customstyle %}
+<style>
+    table {
+        /* border: 1px solid; */
+        width: 100%;
+    }
+
+    th,
+    td {
+        padding: 3px;
+        font-size: 40px;
+    }
+</style>
+{% endblock %}
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade5/home/">Grade 5</a>
+>
+<a href="/grade5/factoring/home/">Factoring</a>
+>
+List Prime Factors
+{% endblock %}
+{% block content %}
+<form action="/grade5/factoring/prime/">
+
+    <table>
+        <tr>
+            <td class="fontsize30" style="text-align: left;">
+            List prime factors of {{ number }}
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right;">
+                <input type="text" id="answer" name="answer" value="{{ answer }}" autocomplete="off" size="18" class="fontsize40 textfield"
+                    style="text-align: left;">
+                {% if flag == 'x' %}
+                <img src="{% static 'img/frown.png' %}" class="resultimg">
+                {% endif %}
+                {% if flag == 'v' %}
+                <img src="{% static 'img/smile.png' %}" class="resultimg">
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">
+                {% if button2 == "GetAnswer" %}
+                <input type="Submit" name="Submit" value="{{ button2 }}" class="fontsize40 button">
+                {% endif %}
+                <input type="Submit" name="Submit" value="{{ cmd }}" class="fontsize40 button">
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="state" name="state" value="{{ state }}">
+    <input type="hidden" id="number" name="number" value="{{ number }}">
+</form>
+{% endblock %}

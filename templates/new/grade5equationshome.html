@@ -1,0 +1,20 @@
+{% extends "base/default.html" %}
+{% load static %}
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade5/home/">Grade 5</a>
+>
+Equations
+{% endblock %}
+{% block content %}
+
+<div class="subdirgrid">
+    <a href="/grade5/equations/calculate/">
+        <div class="subdirlink" style="height: 70px">
+            <div style="height: 10px"></div>
+            Calculate
+        </div>
+    </a>
+</div>
+{% endblock %}

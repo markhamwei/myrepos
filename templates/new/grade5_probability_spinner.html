@@ -1,0 +1,72 @@
+{% extends "base/default.html" %}
+{% load static %}
+{% block customstyle %}
+<style>
+    table {
+        /* border: 1px solid; */
+        width: 100%;
+    }
+
+    th,
+    td {
+        padding: 3px;
+        font-size: 40px;
+    }
+</style>
+{% endblock %}
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade5/home/">Grade 5</a>
+>
+<a href="/grade5/probability/home/">Probability</a>
+>
+Spinner
+{% endblock %}
+{% block content %}
+<form action="/grade5/probability/spinner/">
+
+    <table>
+        <tr>
+            <td style="text-align: right; padding-right: 40px;">
+                <canvas id="myCanvas" width="350" height="350"></canvas>
+                <script src="/static/GraphicScripts/spinner.js"></script>
+                <script>
+                	myarray = [{{ myarray }}]
+					drawSpinner("myCanvas", myarray)
+				</script>
+            </td>
+            <td style="text-align: left;" class="fontsize30">
+                To spin the spinner, which number has most probability:<br>
+                <input style="height:40px;font-size:40pt;" type="text" name="number" maxlength="1" size="1" autocomplete="off" value="{{ number }}">
+                {% if flag1 == 'x' %}
+                <img src="{% static 'img/frown.png' %}" class="resultimg">
+                {% endif %}
+                {% if flag1 == 'v' %}
+                <img src="{% static 'img/smile.png' %}" class="resultimg">
+                {% endif %}
+
+                <br>And the probability is:<br>
+                <input style="height:40px;font-size:40pt;" type="text" name="fraction" maxlength="5" size="1" autocomplete="off" value="{{ fraction }}">
+                {% if flag2 == 'x' %}
+                <img src="{% static 'img/frown.png' %}" class="resultimg">
+                {% endif %}
+                {% if flag2 == 'v' %}
+                <img src="{% static 'img/smile.png' %}" class="resultimg">
+                {% endif %}
+                {{ simplifyFlag }}
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;" colspan="2">
+                {% if button2 == "GetAnswer" %}
+                <input type="Submit" name="Submit" value="{{ button2 }}" class="fontsize40 button">
+                {% endif %}
+                <input type="Submit" name="Submit" value="{{ cmd }}" class="fontsize40 button">
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="state" name="state" value="{{ state }}">
+    <input type="hidden" id="myarray" name="myarray" value="{{ myarray }}">
+</form>
+{% endblock %}

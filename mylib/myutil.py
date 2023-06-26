@@ -236,3 +236,70 @@ def unscramble(s):
     """ unscramble: reverses the operation of scramble
     """
     return (bytes(a^b for a, b in zip(base64.b64decode(s.encode()), cycle(b'scramble')))).decode()
+
+def myList2Str(mylist, order):
+    """ order: True for reverse the input list
+    """
+    mystr = ""
+    number = len(mylist)
+    if(order == False):
+        i = 0
+        while(i < number):
+            mystr += str(mylist[i])
+            i += 1
+            if(i < number):
+                mystr += ","
+        return mystr
+    else:
+        i = number - 1
+        while(i >= 0):
+            mystr += str(mylist[i])
+            i -= 1
+            if(i >= 0):
+                mystr += ","
+        return mystr
+        
+
+def myStr2List(mystr):
+    mylist = mystr.split(',')
+    return mylist
+    
+def getFactors(number):
+    """ returen a list which contains all the factors of the specified number
+    """
+    factors = []
+    for i in range(1, number+1):
+        if((number % i) == 0):
+            factors.append(i)
+    return factors
+
+def isPrime(number):
+    """ return True if number is a prime number, otherwise return False
+    """
+    factors = getFactors(number)
+    if(len(factors) == 2):
+        return True
+    else:
+        return False
+    
+def getPrimeFactors(number):
+    """ return a list which contains all the factors of the specified number
+    """
+    factors = []
+    for i in range(1, number+1):
+        if(((number % i) == 0) and (True == isPrime(i))):
+            factors.append(i)
+    return factors
+
+def getItemsCount(mylist):
+    """ return a dictionary which represent the count for each unique number in mylist
+    """
+    thisdict = {}
+    mysize = len(mylist)
+    for i in range(mysize):
+        item = mylist[i]
+        if item in thisdict.keys():
+            thisdict[item] += 1
+        else:
+            thisdict[item] = 1
+    return thisdict

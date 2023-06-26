@@ -1,0 +1,51 @@
+{% extends "base/default.html" %}
+{% load static %}
+{% block title %}
+<a href="/">Happy Math</a>
+>
+<a href="/grade5/home/">Grade 5</a>
+>
+Patterning
+{% endblock %}
+{% block content %}
+<form action="/grade5/pattern/">
+    <table>
+        <tr>
+            <td style="text-align: left; padding-bottom: 10px;" class="fontsize30">
+                Find out the pattern rule for the numbers, then write the next two numbers:
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center; padding-bottom: 10px;" class="fontsize30">
+                {{num1}} {{num2}} {{num3}} {{num4}} {{num5}} {{num6}} 
+                <input style="height:50px;font-size:40pt;" type="text" name="usernum1" maxlength="3" size="1" autocomplete="off" value="{{ usernum1 }}">
+                <input style="height:50px;font-size:40pt;" type="text" name="usernum2" maxlength="3" size="1" autocomplete="off" value="{{ usernum2 }}">
+                {{pattern_rule}}
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center; padding-bottom: 10px;" colspan="2">
+                {% if button2 == "GetAnswer" %}
+                <input type="Submit" name="Submit" value="{{ button2 }}" class="fontsize40 button">
+                {% endif %}
+                <input type="Submit" name="Submit" value="{{ cmd }}" class="fontsize40 button">
+            </td>
+        </tr>
+        <tr>
+        	<td style="text-align: center;" colspan="2">
+       			{% if flag == 'x' %}
+                <img src="{% static 'img/frown.png' %}" class="resultimg">
+                {% endif %}
+                {% if flag == 'v' %}
+                <img src="{% static 'img/smile.png' %}" class="resultimg">
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="state" name="state" value="{{ state }}">
+    <input type="hidden" id="values" name="values" value="{{ values }}">
+    <input type="hidden" id="times" name="times" value="{{ times }}">
+    <input type="hidden" id="step" name="step" value="{{ step }}">
+</form>
+
+{% endblock %}
