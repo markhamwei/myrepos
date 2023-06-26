@@ -55,7 +55,7 @@ def angles_identify_page(request):
         context['flag'] = '='
         context['cmd'] = 'Submit'
         context['saveType'] = angleType
-        return render(request, 'new/grade5angles_Identify.html', context)
+        return render(request, 'grade5/grade5angles_Identify.html', context)
     if (state == 1):  # which means user clicked submit in the initial page
         submittedValue = request.GET['Submit']
         useranswer = -1
@@ -93,4 +93,4 @@ def angles_identify_page(request):
             context['cmd'] = 'Retry'
             context['button2'] = 'GetAnswer'
 
-        return render(request, 'new/grade5angles_Identify.html', context)
+        return render(request, 'grade5/grade5angles_Identify.html', context)

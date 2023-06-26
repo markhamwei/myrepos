@@ -66,7 +66,7 @@ def pattern_page(request):
             context['values'] = myutil.myList2Str(result, True)
         context['flag'] = '='
         context['cmd'] = 'Submit'
-        return render(request, 'new/grade5pattern.html', context)
+        return render(request, 'grade5/grade5pattern.html', context)
     if (state == 1):  # which means user clicked submit in the initial page
         submittedValue = request.GET['Submit']
         useranswer1 = -1
@@ -132,4 +132,4 @@ def pattern_page(request):
             context['cmd'] = 'Retry'
             context['button2'] = 'GetAnswer'
 
-        return render(request, 'new/grade5pattern.html', context)
+        return render(request, 'grade5/grade5pattern.html', context)

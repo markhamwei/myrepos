@@ -31,4 +31,4 @@ def basicsolving_page(request):
         const3 = eval(f'{answer} {op1} {const1} {op2} {const2}')
         context['problem'] = f'{var} {op1} {const1} {op2} {const2} = {const3}'.replace('*','×')
     
-    return render(request, 'new/grade6BasicSolving.html', context)
+    return render(request, 'grade5/grade6BasicSolving.html', context)

@@ -34,4 +34,4 @@ def page(request):
         context['problem'] = f'{var} {op1} {const1} {op2} {const2} = {const3}'.replace('*','×')
         context['seed'] = json.dumps(myutil.get_randoms_unique(3, 1, int(answer)+10))
     
-    return render(request, 'new/grade6multiplechoicesolving.html', context)
+    return render(request, 'grade5/grade6multiplechoicesolving.html', context)

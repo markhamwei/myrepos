@@ -19,7 +19,7 @@ def grade5_factors_list_page(request):
         context['number'] = number
         context['flag'] = '='
         context['cmd'] = 'Submit'
-        return render(request, 'new/grade5_factors_list.html', context)
+        return render(request, 'grade5/grade5_factors_list.html', context)
     if (state == 1):  # which means user clicked submit in the initial page
         submittedValue = request.GET['Submit']
         number = int(request.GET['number'])
@@ -65,4 +65,4 @@ def grade5_factors_list_page(request):
             context['button2'] = ''
             context['answer'] = myutil.myList2Str(factors, False)
 
-        return render(request, 'new/grade5_factors_list.html', context)
+        return render(request, 'grade5/grade5_factors_list.html', context)

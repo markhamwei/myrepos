@@ -41,7 +41,7 @@ def grade5_probability_spinner_page(request):
 
         context['myarray'] = myutil.myList2Str(myarray, False)
         context['cmd'] = 'Submit'
-        return render(request, 'new/grade5_probability_spinner.html', context)
+        return render(request, 'grade5/grade5_probability_spinner.html', context)
     if (state == 1):  # which means user clicked submit in the initial page
         submittedValue = request.GET['Submit']
         try:
@@ -107,4 +107,4 @@ def grade5_probability_spinner_page(request):
             context['number'] = number
             context['fraction'] = fractionstr
 
-        return render(request, 'new/grade5_probability_spinner.html', context)
+        return render(request, 'grade5/grade5_probability_spinner.html', context)

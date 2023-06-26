@@ -7,4 +7,4 @@ from datetime import datetime
 
 def volume_page(request):
 	context = { 'year' : '2023' }
-	return render(request, 'new/grade5Volume.html', context)
+	return render(request, 'grade5/grade5Volume.html', context)

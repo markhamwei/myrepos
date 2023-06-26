@@ -17,6 +17,6 @@ def my_page(request):
 	#print(next(res.results).text)	
 	#return HttpResponse(next(res.results).text)
 	if(request.user.is_authenticated):
-		return render(request, 'new/myhome.html')
+		return render(request, 'grade5/myhome.html')
 	else:
 		return redirect('/login')

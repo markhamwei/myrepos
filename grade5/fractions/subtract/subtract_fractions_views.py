@@ -65,7 +65,7 @@ def fractions_subtract_page(request):
             context['number23'] = fraction1[2]
         context['flag'] = '='
         context['cmd'] = 'Submit'
-        return render(request, 'new/grade5fractions_subtract.html', context)
+        return render(request, 'grade5/grade5fractions_subtract.html', context)
     if (state == 1):  # which means user cliked submit in the initial page
         submittedValue = request.GET['Submit']
         userinteger = -1
@@ -126,4 +126,4 @@ def fractions_subtract_page(request):
         else:
             context['button2'] = ''
 
-        return render(request, 'new/grade5fractions_subtract.html', context)
+        return render(request, 'grade5/grade5fractions_subtract.html', context)

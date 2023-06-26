@@ -49,7 +49,7 @@ def grids_page(request):
         context['loc2'] = location2
         context['flag'] = '='
         context['cmd'] = 'Submit'
-        return render(request, 'new/grade5grids.html', context)
+        return render(request, 'grade5/grade5grids.html', context)
     if (state == 1):  # which means user clicked submit in the initial page
         submittedValue = request.GET['Submit']
         useranswer = ''
@@ -101,4 +101,4 @@ def grids_page(request):
             context['cmd'] = 'Retry'
             context['button2'] = 'GetAnswer'
 
-        return render(request, 'new/grade5grids.html', context)
+        return render(request, 'grade5/grade5grids.html', context)

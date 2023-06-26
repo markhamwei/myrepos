@@ -40,4 +40,4 @@ def perimeter_page(request):
 			context['answer'] = myutil.unscramble(request.POST['answer'])
 			context['question'] = request.POST['question']
 
-	return render(request, 'new/grade5Perimeter.html', context)
+	return render(request, 'grade5/grade5Perimeter.html', context)

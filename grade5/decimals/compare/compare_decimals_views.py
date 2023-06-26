@@ -32,7 +32,7 @@ def decimals_compare_page(request):
             context['decimal2'] = round(decimal2[0]+decimal2[1], numDigits2)
         context['flag'] = '='
         context['cmd'] = 'Submit'
-        return render(request, 'new/grade5decimals_compare.html', context)
+        return render(request, 'grade5/grade5decimals_compare.html', context)
     if (state == 1):  # which means user cliked submit in the initial page
         submittedValue = request.GET['Submit']
         useranswer = -2
@@ -84,4 +84,4 @@ def decimals_compare_page(request):
         else:
             context['button2'] = ''
 
-        return render(request, 'new/grade5decimals_compare.html', context)
+        return render(request, 'grade5/grade5decimals_compare.html', context)

@@ -55,4 +55,4 @@ def evaluating_page(request):
             if(i in context['problem']):
                 context['definitions'] += '{} = {}\n\n'.format(i, vars[i])
         
-    return render(request, 'new/grade6Evaluating.html', context)
+    return render(request, 'grade5/grade6Evaluating.html', context)

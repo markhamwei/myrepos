@@ -84,7 +84,7 @@ def triangles_identify_page(request):
         context['flag'] = '='
         context['cmd'] = 'Submit'
         context['saveType'] = triangleType
-        return render(request, 'new/grade5triangles_Identify.html', context)
+        return render(request, 'grade5/grade5triangles_Identify.html', context)
     if (state == 1):  # which means user clicked submit in the initial page
         submittedValue = request.GET['Submit']
         useranswer1 = "none"
@@ -165,4 +165,4 @@ def triangles_identify_page(request):
             context['cmd'] = 'Retry'
             context['button2'] = 'GetAnswer'
 
-        return render(request, 'new/grade5triangles_Identify.html', context)
+        return render(request, 'grade5/grade5triangles_Identify.html', context)

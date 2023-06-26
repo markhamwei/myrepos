@@ -51,4 +51,4 @@ def area_page(request):
 			context['answer'] = myutil.unscramble(request.POST['answer'])
 			context['question'] = request.POST['question']
 
-	return render(request, 'new/grade5Area.html', context)
+	return render(request, 'grade5/grade5Area.html', context)

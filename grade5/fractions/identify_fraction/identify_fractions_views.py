@@ -44,7 +44,7 @@ def fractions_identify_page(request):
         context['flag'] = '='
         context['cmd'] = 'Submit'
         context['fractionType'] = fractiontype
-        return render(request, 'new/grade5fractions_Identify.html', context)
+        return render(request, 'grade5/grade5fractions_Identify.html', context)
     if (state == 1):  # which means user cliked submit in the initial page
         submittedValue = request.GET['Submit']
         useranswer = "-1"
@@ -93,4 +93,4 @@ def fractions_identify_page(request):
         else:
             context['button2'] = ''
 
-        return render(request, 'new/grade5fractions_Identify.html', context)
+        return render(request, 'grade5/grade5fractions_Identify.html', context)

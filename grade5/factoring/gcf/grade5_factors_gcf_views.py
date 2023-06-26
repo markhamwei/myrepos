@@ -26,7 +26,7 @@ def grade5_factors_gcf_page(request):
         context['number2'] = number2
         context['flag'] = '='
         context['cmd'] = 'Submit'
-        return render(request, 'new/grade5_factors_gcf.html', context)
+        return render(request, 'grade5/grade5_factors_gcf.html', context)
     if (state == 1):  # which means user clicked submit in the initial page
         submittedValue = request.GET['Submit']
         number1 = int(request.GET['number1'])
@@ -60,4 +60,4 @@ def grade5_factors_gcf_page(request):
             context['button2'] = ''
             context['answer'] = gcf
 
-        return render(request, 'new/grade5_factors_gcf.html', context)
+        return render(request, 'grade5/grade5_factors_gcf.html', context)

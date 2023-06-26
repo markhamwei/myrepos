@@ -71,7 +71,7 @@ def grade5_equations_calculate_page(request):
         context['number3'] = num3
         context['flag'] = '='
         context['cmd'] = 'Submit'
-        return render(request, 'new/grade5_equations_calculate.html', context)
+        return render(request, 'grade5/grade5_equations_calculate.html', context)
     if (state == 1):  # which means user clicked submit in the initial page
         submittedValue = request.GET['Submit']
         num1 = int(request.GET['num1'])
@@ -115,4 +115,4 @@ def grade5_equations_calculate_page(request):
             context['cmd'] = 'Next'
             context['button2'] = ''
 
-        return render(request, 'new/grade5_equations_calculate.html', context)
+        return render(request, 'grade5/grade5_equations_calculate.html', context)

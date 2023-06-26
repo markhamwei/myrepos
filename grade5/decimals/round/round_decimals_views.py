@@ -49,7 +49,7 @@ def decimals_round_page(request):
         context['roundControl'] = roundControl
         context['flag'] = '='
         context['cmd'] = 'Submit'
-        return render(request, 'new/grade5decimals_round.html', context)
+        return render(request, 'grade5/grade5decimals_round.html', context)
     if (state == 1):  # which means user cliked submit in the initial page
         submittedValue = request.GET['Submit']
         userinput = -2
@@ -102,4 +102,4 @@ def decimals_round_page(request):
         else:
             context['button2'] = ''
 
-        return render(request, 'new/grade5decimals_round.html', context)
+        return render(request, 'grade5/grade5decimals_round.html', context)

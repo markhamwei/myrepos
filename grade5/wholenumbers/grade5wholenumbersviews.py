@@ -6,4 +6,4 @@ from django.http import HttpResponse
 
 
 def grade5_wholenumbers_home(request):
-    return render(request, 'new/grade5wholenumbershome.html')
+    return render(request, 'grade5/grade5wholenumbershome.html')
